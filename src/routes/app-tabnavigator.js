@@ -27,6 +27,7 @@ const useBottomNavigationState = (initialState = 0) => {
 
 const BottomTabBar = ({navigation, state}) => (
   <BottomNavigation
+    appearance="noIndicator"
     style={styles.bottomNavigation}
     selectedIndex={state.index}
     onSelect={(index) => navigation.navigate(state.routeNames[index])}>
@@ -42,9 +43,21 @@ export const AppTabNavigator = () => {
 
   return (
     <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-      <Screen name="Orders" component={OrderScreen} />
-      <Screen name="History" component={HistoryScreen} />
-      <Screen name="Profile" component={ProfileScreen} />
+      <Screen
+        name="Orders"
+        options={{title: 'Order Khamang'}}
+        component={OrderScreen}
+      />
+      <Screen
+        name="History"
+        options={{title: 'Order History'}}
+        component={HistoryScreen}
+      />
+      <Screen
+        name="Profile"
+        options={{title: 'Profile'}}
+        component={ProfileScreen}
+      />
     </Navigator>
   );
 };
@@ -52,6 +65,7 @@ export const AppTabNavigator = () => {
 const styles = StyleSheet.create({
   bottomNavigation: {
     marginVertical: 8,
-    borderRadius: 25,
+    marginHorizontal: 12,
+    borderRadius: 50,
   },
 });

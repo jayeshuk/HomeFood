@@ -1,19 +1,22 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ImageBackground} from 'react-native';
 import {Button, Card, Layout, Text} from '@ui-kitten/components';
 
-const Header = (props) => (
-  <View {...props}>
-    <Text category="h6">Maldives</Text>
-    <Text category="s1">By Wikipedia</Text>
-  </View>
-);
+const Header = (props) => <View {...props}></View>;
 
 export const CardOne = () => (
   //   <React.Fragment>
   <Layout style={styles.topContainer} level="1">
     <Card style={styles.card} header={Header}>
-      <Text>With Header</Text>
+      <ImageBackground
+        source={{
+          uri:
+            'https://i.ndtvimg.com/i/2015-12/maharashtrian_625x350_61450870428.jpg',
+        }}
+        resizeMode={'cover'}
+        style={styles.image}>
+        <Text>With Headerd</Text>
+      </ImageBackground>
     </Card>
   </Layout>
   //   </React.Fragment>
@@ -25,7 +28,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   card: {
+    height: 200,
     flex: 1,
-    margin: 2,
+    margin: 60,
+  },
+  image: {
+    ...StyleSheet.absoluteFill,
   },
 });
