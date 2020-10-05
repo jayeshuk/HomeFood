@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 import { Layout, Toggle } from '@ui-kitten/components';
 import { Setting } from './extra/settings-section.component';
 
-export default (): React.ReactElement => {
+export default ()=> {
 
-  const [soundEnabled, setSoundEnabled] = React.useState<boolean>(false);
+  const [soundEnabled, setSoundEnabled] = React.useState(false);
 
-  const toggleSound = (): void => {
+  const toggleSound = ()=> {
     setSoundEnabled(!soundEnabled);
   };
 

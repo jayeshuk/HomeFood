@@ -8,9 +8,10 @@ import {
 // import {NavigationContainer} from '@react-navigation/native';
 import {Text, Layout} from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ProfileScreen from '../screens/profile';
+import ProfileScreen from '../screens/profile/profile-screen';
 import OrderScreen from '../screens/order';
 import HistoryScreen from '../screens/history';
+import ProfileNavigator from './profile-navigator';
 
 const OrderIcon = (props) => <Icon {...props} name="home" pack="material" />;
 const HistoryIcon = (props) => <Icon {...props} name="clipboard" pack="eva" />;
@@ -53,11 +54,8 @@ export const AppTabNavigator = () => {
         options={{title: 'Order History'}}
         component={HistoryScreen}
       />
-      <Screen
-        name="Profile"
-        options={{title: 'Profile'}}
-        component={ProfileScreen}
-      />
+      
+      <Screen name="ProfileScreen" component={ProfileScreen} />
     </Navigator>
   );
 };

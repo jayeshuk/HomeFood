@@ -1,35 +1,3 @@
-// import React from 'react';
-// import {
-//   Container,
-//   SafeAreaView,
-//   TouchableHighlight,
-//   ImageBackground,
-// } from 'react-native';
-// import {CardOne} from '../../components/atoms/CardOne';
-// import {Layout, Text, TopNavigation} from '@ui-kitten/components';
-
-// const ProfileScreen = () => (
-//   <>
-//     <TopNavigation
-//       style={{paddingLeft: 20}}
-//       title={(TextProps) => {
-//         return (
-//           <Text category="h2" status="primary">
-//             Profile
-//           </Text>
-//         );
-//       }}
-//       alignment="start"
-//     />
-//     <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//       <Text category="h1">PROFILE</Text>
-//       <CardOne />
-//     </Layout>
-//   </>
-// );
-
-// export default ProfileScreen;
-
 import React from 'react';
 import {
   ImageBackground,
@@ -85,15 +53,15 @@ const posts = [
 
 ];
 
-export default ({navigation}) => {
+export default ProfileScreen = ({navigation}) => {
   const styles = useStyleSheet(themedStyle);
 
-  const onFollowButtonPress = () => {
+  const onEditPress = () => {
     navigation && navigation.goBack();
   };
 
-  const onMessageButtonPress = () => {
-    navigation && navigation.navigate('Chat1');
+  const onSettingsPress = () => {
+    navigation.navigate('SettingsScreen');
   };
 
   const renderFriendItem = (info) => (
@@ -113,7 +81,7 @@ export default ({navigation}) => {
     <ScrollView style={styles.container}>
       <ImageOverlay
         style={styles.header}
-        source={require('../../assets/images/image-background.jpg')}>
+        source={require('../../../assets/images/image-background.jpg')}>
         <Avatar style={styles.profileAvatar} source={profile.photo} />
         <Text style={styles.profileName} category="h5" status="control">
           {profile.fullName}
@@ -128,7 +96,7 @@ export default ({navigation}) => {
           <Button
             style={styles.profileButton}
             icon={PersonAddIcon}
-            onPress={onFollowButtonPress}>
+            onPress={onEditPress}>
             EDIT
             
           </Button>
@@ -136,7 +104,7 @@ export default ({navigation}) => {
             style={styles.profileButton}
             status="control"
             icon={MessageCircleIcon}
-            onPress={onMessageButtonPress}>
+            onPress={onSettingsPress}>
             SETTINGS
           </Button>
         </View>
