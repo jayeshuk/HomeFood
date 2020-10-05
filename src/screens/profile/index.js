@@ -94,7 +94,7 @@ export default ({navigation}) => {
     navigation && navigation.navigate('Chat1');
   };
 
-  const renderFriendItem = (info: ListRenderItemInfo<Profile>) => (
+  const renderFriendItem = (info) => (
     <View style={styles.friendItem}>
       <Avatar source={info.item.photo} />
       <Text style={styles.friendName} category="c2">
@@ -103,9 +103,7 @@ export default ({navigation}) => {
     </View>
   );
 
-  const renderPostItem = (
-    info: ListRenderItemInfo<Post>,
-  ): React.ReactElement => (
+  const renderPostItem = (info) => (
     <ImageBackground style={styles.postItem} source={info.item.photo} />
   );
 
