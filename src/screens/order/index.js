@@ -9,7 +9,7 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import CardOne from '../../components/atoms/CardOne';
-import Carousel from '../../components/atoms/Carousel';
+// import Carousel from '../../components/atoms/Carousel';
 import SwiperCard from '../../components/atoms/Swiper/index';
 
 const OrderIcon = (props) => {

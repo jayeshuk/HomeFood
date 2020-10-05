@@ -37,7 +37,6 @@ const friends = [
   Profile.jenniferGree(),
   Profile.jenniferGre(),
   Profile.jenniferGr(),
-  
 ];
 
 const posts = [
@@ -50,7 +49,6 @@ const posts = [
   Post.pl(),
   Post.plant111(),
   Post.plant14(),
-
 ];
 
 export default ProfileScreen = ({navigation}) => {
@@ -61,7 +59,7 @@ export default ProfileScreen = ({navigation}) => {
   };
 
   const onSettingsPress = () => {
-    navigation.navigate('SettingsScreen');
+    navigation && navigation.navigate('SettingsScreen');
   };
 
   const renderFriendItem = (info) => (
@@ -78,56 +76,56 @@ export default ProfileScreen = ({navigation}) => {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <ImageOverlay
-        style={styles.header}
-        source={require('../../../assets/images/image-background.jpg')}>
-        <Avatar style={styles.profileAvatar} source={profile.photo} />
-        <Text style={styles.profileName} category="h5" status="control">
-          {profile.fullName}
-        </Text>
-        <View style={styles.locationContainer}>
-          <PinIcon />
-          <Text style={styles.location} status="control">
-            {profile.location}
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ScrollView style={styles.container}>
+        <ImageOverlay
+          style={styles.header}
+          source={require('../../../assets/images/image-background.jpg')}>
+          <Avatar style={styles.profileAvatar} source={profile.photo} />
+          <Text style={styles.profileName} category="h5" status="control">
+            {profile.fullName}
           </Text>
-        </View>
-        <View style={styles.profileButtonsContainer}>
-          <Button
-            style={styles.profileButton}
-            icon={PersonAddIcon}
-            onPress={onEditPress}>
-            EDIT
-            
-          </Button>
-          <Button
-            style={styles.profileButton}
-            status="control"
-            icon={MessageCircleIcon}
-            onPress={onSettingsPress}>
-            SETTINGS
-          </Button>
-        </View>
+          <View style={styles.locationContainer}>
+            <PinIcon />
+            <Text style={styles.location} status="control">
+              {profile.location}
+            </Text>
+          </View>
+          <View style={styles.profileButtonsContainer}>
+            <Button
+              style={styles.profileButton}
+              icon={PersonAddIcon}
+              onPress={onEditPress}>
+              EDIT
+            </Button>
+            <Button
+              style={styles.profileButton}
+              status="control"
+              icon={MessageCircleIcon}
+              onPress={onSettingsPress}>
+              SETTINGS
+            </Button>
+          </View>
+        </ImageOverlay>
 
-      </ImageOverlay>
-      
-      <Text style={styles.profileDescription} appearance="hint">
-        {profile.description}
-      </Text>
-      <Text style={styles.sectionLabel} category="s1">
-       Favorites 
-      </Text>
-      <List
-        contentContainerStyle={styles.friendsList}
-        horizontal={true}
-        data={friends}
-        renderItem={renderFriendItem}
-      />
-      <Text style={styles.sectionLabel} category="s1">
-        Shots
-      </Text>
-      <List data={posts} numColumns={3} renderItem={renderPostItem} />
-    </ScrollView>
+        <Text style={styles.profileDescription} appearance="hint">
+          {profile.description}
+        </Text>
+        <Text style={styles.sectionLabel} category="s1">
+          Favorites
+        </Text>
+        <List
+          contentContainerStyle={styles.friendsList}
+          horizontal={true}
+          data={friends}
+          renderItem={renderFriendItem}
+        />
+        <Text style={styles.sectionLabel} category="s1">
+          Shots
+        </Text>
+        <List data={posts} numColumns={3} renderItem={renderPostItem} />
+      </ScrollView>
+    </View>
   );
 };
 

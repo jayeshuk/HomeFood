@@ -8,9 +8,8 @@ import {
 // import {NavigationContainer} from '@react-navigation/native';
 import {Text, Layout} from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ProfileScreen from '../screens/profile/profile-screen';
-import OrderScreen from '../screens/order';
-import HistoryScreen from '../screens/history';
+import OrderNavigator from './order-navigator';
+import HistoryNavigator from './history-navigator';
 import ProfileNavigator from './profile-navigator';
 
 const OrderIcon = (props) => <Icon {...props} name="home" pack="material" />;
@@ -45,17 +44,17 @@ export const AppTabNavigator = () => {
   return (
     <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Screen
-        name="Orders"
+        name="OrderNavigator"
         options={{title: 'Order Khamang'}}
-        component={OrderScreen}
+        component={OrderNavigator}
       />
       <Screen
-        name="History"
+        name="HistoryNavigator"
         options={{title: 'Order History'}}
-        component={HistoryScreen}
+        component={HistoryNavigator}
       />
-      
-      <Screen name="ProfileScreen" component={ProfileScreen} />
+
+      <Screen name="ProfileNavigator" component={ProfileNavigator} />
     </Navigator>
   );
 };

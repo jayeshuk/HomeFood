@@ -54,6 +54,8 @@ let styles = StyleSheet.create({
     alignItems: 'center',
     resizeMode: 'cover',
     position: 'relative',
+    backgroundColor: 'black',
+    opacity: 1,
   },
   button: {
     borderRadius: 25,
