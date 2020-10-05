@@ -66,21 +66,23 @@ const friends = [
   Profile.jenAustin(),
   Profile.jenniferGreen(),
   Profile.helenKuper(),
-  Profile.jenAustin(),
-  Profile.jenniferGreen(),
-  Profile.helenKuper(),
+  Profile.jenniferGree(),
+  Profile.jenniferGre(),
+  Profile.jenniferGr(),
+  
 ];
 
 const posts = [
   Post.plant1(),
   Post.travel1(),
   Post.style1(),
-  Post.style1(),
-  Post.plant1(),
-  Post.travel1(),
-  Post.travel1(),
-  Post.style1(),
-  Post.plant1(),
+  Post.plant(),
+  Post.plan(),
+  Post.pla(),
+  Post.pl(),
+  Post.plant111(),
+  Post.plant14(),
+
 ];
 
 export default ({navigation}) => {
@@ -129,42 +131,25 @@ export default ({navigation}) => {
             style={styles.profileButton}
             icon={PersonAddIcon}
             onPress={onFollowButtonPress}>
-            FOLLOW
+            EDIT
+            
           </Button>
           <Button
             style={styles.profileButton}
             status="control"
             icon={MessageCircleIcon}
             onPress={onMessageButtonPress}>
-            MESSAGE
+            SETTINGS
           </Button>
         </View>
-        <View style={styles.socialsContainer}>
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Followers"
-            value={`${profile.followers}`}
-          />
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Following"
-            value={`${profile.following}`}
-          />
-          <ProfileSocial
-            style={styles.profileSocial}
-            hint="Posts"
-            value={`${profile.posts}`}
-          />
-        </View>
+
       </ImageOverlay>
-      <Text style={styles.sectionLabel} category="s1">
-        About
-      </Text>
+      
       <Text style={styles.profileDescription} appearance="hint">
         {profile.description}
       </Text>
       <Text style={styles.sectionLabel} category="s1">
-        Friends
+       Favorites 
       </Text>
       <List
         contentContainerStyle={styles.friendsList}

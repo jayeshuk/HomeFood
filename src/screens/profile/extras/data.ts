@@ -6,10 +6,7 @@ export class Profile {
     readonly lastName: string,
     readonly photo: ImageSourcePropType,
     readonly location: string,
-    readonly description: string,
-    readonly followers: number,
-    readonly following: number,
-    readonly posts: number,
+    
   ) {}
 
   get fullName(): string {
@@ -18,40 +15,59 @@ export class Profile {
 
   static helenKuper(): Profile {
     return new Profile(
-      'Helen',
+      'Punjabi',
       'Kuper',
       require('../../../assets/images/image-profile-1.jpg'),
       'Germany',
-      "I'm a Traveler. I'm like listening to music, going to the cinema, walking with my friends, drawing pictures and traveling.",
-      1500,
-      86,
-      116,
+     
     );
   }
+  
 
   static jenAustin(): Profile {
     return new Profile(
-      'Jen',
+      'Chinease',
       'Austin',
       require('../../../assets/images/image-profile-2.jpg'),
       'Tokyo',
-      "I'm a Traveler. I'm like listening to music, going to the cinema, walking with my friends, drawing pictures and traveling.",
-      2500,
-      172,
-      25,
+    
     );
   }
 
   static jenniferGreen(): Profile {
     return new Profile(
-      'Jennifer',
+      'South Indian',
       'Green',
       require('../../../assets/images/image-profile-3.jpg'),
       'Germany',
-      'Hi! My name is Jennifer. I’m 25 and I live in Berlin. I’m interested in computer science, music, sport and fantasy literature.',
-      2500,
-      172,
-      25,
+      
+    );
+  }
+  static jenniferGree(): Profile {
+    return new Profile(
+      'Bengali',
+      'Green',
+      require('../../../assets/images/17.jpg'),
+      'Germany',
+      
+    );
+  }
+  static jenniferGre(): Profile {
+    return new Profile(
+      'Gujarati',
+      'Green',
+      require('../../../assets/images/18.jpg'),
+      'Germany',
+      
+    );
+  }
+  static jenniferGr(): Profile {
+    return new Profile(
+      'Itailian',
+      'Green',
+      require('../../../assets/images/19.jpg'),
+      'Germany',
+      
     );
   }
 }
@@ -62,6 +78,47 @@ export class Post {
   static plant1(): Post {
     return new Post(
       require('../../../assets/images/image-plant-1.jpg'),
+      'Plants',
+    );
+  }
+
+  static plant(): Post {
+    return new Post(
+      require('../../../assets/images/11.jpg'),
+      'Plants',
+    );
+  }
+  static plan(): Post {
+    return new Post(
+      require('../../../assets/images/12.jpg'),
+      'Plants',
+    );
+  }
+
+  static pla(): Post {
+    return new Post(
+      require('../../../assets/images/13.jpg'),
+      'Plants',
+    );
+  }
+
+  static pl(): Post {
+    return new Post(
+      require('../../../assets/images/14.jpg'),
+      'Plants',
+    );
+  }
+
+  static plant111(): Post {
+    return new Post(
+      require('../../../assets/images/15.jpg'),
+      'Plants',
+    );
+  }
+
+  static plant14(): Post {
+    return new Post(
+      require('../../../assets/images/16.jpg'),
       'Plants',
     );
   }

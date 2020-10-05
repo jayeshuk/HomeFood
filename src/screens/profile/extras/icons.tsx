@@ -7,7 +7,7 @@ export const MessageCircleIcon = (style: ImageStyle): IconElement => (
 );
 
 export const PersonAddIcon = (style: ImageStyle): IconElement => (
-  <Icon {...style} name="person-add" pack="eva" />
+  <Icon {...style}  name="person-add" pack="eva" />
 );
 
 export const PinIcon = (): IconElement => {
