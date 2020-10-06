@@ -55,7 +55,7 @@ export default ProfileScreen = ({navigation}) => {
   const styles = useStyleSheet(themedStyle);
 
   const onEditPress = () => {
-    navigation && navigation.goBack();
+    navigation && navigation.navigate('EditScreen');
   };
 
   const onSettingsPress = () => {
