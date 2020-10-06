@@ -17,7 +17,7 @@ import {
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extras/image-overlay.component';
 import {ProfileSocial} from './extras/profile-social.component';
-import {MessageCircleIcon, PersonAddIcon, PinIcon} from './extras/icons';
+import {SettingsIcon, EditIcon, PinIcon} from './extras/icons';
 import {Post, Profile} from './extras/data';
 
 /*
@@ -31,10 +31,7 @@ import {Post, Profile} from './extras/data';
 const profile = Profile.helenKuper();
 
 const friends = [
-  Profile.jenAustin(),
   Profile.jenniferGreen(),
-  Profile.helenKuper(),
-  Profile.jenniferGree(),
   Profile.jenniferGre(),
   Profile.jenniferGr(),
 ];
@@ -76,7 +73,12 @@ export default ProfileScreen = ({navigation}) => {
   );
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
       <ScrollView style={styles.container}>
         <ImageOverlay
           style={styles.header}
@@ -94,14 +96,15 @@ export default ProfileScreen = ({navigation}) => {
           <View style={styles.profileButtonsContainer}>
             <Button
               style={styles.profileButton}
-              icon={PersonAddIcon}
+              status="info"
+              accessoryLeft={EditIcon}
               onPress={onEditPress}>
-              EDIT
+              EDIT PROFILE
             </Button>
             <Button
               style={styles.profileButton}
               status="control"
-              icon={MessageCircleIcon}
+              accessoryLeft={SettingsIcon}
               onPress={onSettingsPress}>
               SETTINGS
             </Button>
@@ -121,7 +124,7 @@ export default ProfileScreen = ({navigation}) => {
           renderItem={renderFriendItem}
         />
         <Text style={styles.sectionLabel} category="s1">
-          Shots
+          Saved Dishes
         </Text>
         <List data={posts} numColumns={3} renderItem={renderPostItem} />
       </ScrollView>
@@ -132,6 +135,7 @@ export default ProfileScreen = ({navigation}) => {
 const themedStyle = StyleService.create({
   container: {
     flex: 1,
+    width: '100%',
     backgroundColor: 'background-basic-color-2',
   },
   header: {
@@ -173,8 +177,9 @@ const themedStyle = StyleService.create({
   },
   sectionLabel: {
     marginTop: 24,
-    marginBottom: 8,
+    marginBottom: 10,
     marginHorizontal: 16,
+    color: 'grey',
   },
   profileDescription: {
     marginHorizontal: 16,
@@ -188,6 +193,7 @@ const themedStyle = StyleService.create({
   },
   friendName: {
     marginTop: 8,
+    color: 'grey',
   },
   postItem: {
     flex: 1,

@@ -6,7 +6,6 @@ export class Profile {
     readonly lastName: string,
     readonly photo: ImageSourcePropType,
     readonly location: string,
-    
   ) {}
 
   get fullName(): string {
@@ -15,14 +14,12 @@ export class Profile {
 
   static helenKuper(): Profile {
     return new Profile(
-      'Punjabi',
-      'Kuper',
+      'Rohan',
+      'S',
       require('../../../../assets/images/image-profile-1.jpg'),
-      'Germany',
-     
+      'Nanded',
     );
   }
-  
 
   static jenAustin(): Profile {
     return new Profile(
@@ -30,7 +27,6 @@ export class Profile {
       'Austin',
       require('../../../../assets/images/image-profile-2.jpg'),
       'Tokyo',
-    
     );
   }
 
@@ -40,7 +36,6 @@ export class Profile {
       'Green',
       require('../../../../assets/images/image-profile-3.jpg'),
       'Germany',
-      
     );
   }
   static jenniferGree(): Profile {
@@ -49,7 +44,6 @@ export class Profile {
       'Green',
       require('../../../../assets/images/17.jpg'),
       'Germany',
-      
     );
   }
   static jenniferGre(): Profile {
@@ -58,7 +52,6 @@ export class Profile {
       'Green',
       require('../../../../assets/images/18.jpg'),
       'Germany',
-      
     );
   }
   static jenniferGr(): Profile {
@@ -67,7 +60,6 @@ export class Profile {
       'Green',
       require('../../../../assets/images/19.jpg'),
       'Germany',
-      
     );
   }
 }
@@ -83,44 +75,26 @@ export class Post {
   }
 
   static plant(): Post {
-    return new Post(
-      require('../../../../assets/images/11.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/11.jpg'), 'Plants');
   }
   static plan(): Post {
-    return new Post(
-      require('../../../../assets/images/12.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/12.jpg'), 'Plants');
   }
 
   static pla(): Post {
-    return new Post(
-      require('../../../../assets/images/13.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/13.jpg'), 'Plants');
   }
 
   static pl(): Post {
-    return new Post(
-      require('../../../../assets/images/14.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/14.jpg'), 'Plants');
   }
 
   static plant111(): Post {
-    return new Post(
-      require('../../../../assets/images/15.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/15.jpg'), 'Plants');
   }
 
   static plant14(): Post {
-    return new Post(
-      require('../../../../assets/images/16.jpg'),
-      'Plants',
-    );
+    return new Post(require('../../../../assets/images/16.jpg'), 'Plants');
   }
 
   static travel1(): Post {

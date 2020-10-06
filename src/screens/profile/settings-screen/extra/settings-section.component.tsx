@@ -1,15 +1,20 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import { Divider, Text } from '@ui-kitten/components';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
+import {Divider, Text} from '@ui-kitten/components';
 
 interface SectionProps extends TouchableOpacityProps {
   hint: string;
   children?: React.ReactNode;
 }
 
-export const Setting = (props: SectionProps): React.ReactElement<TouchableOpacityProps> => {
-
-  const { style, hint, children, ...touchableOpacityProps } = props;
+export const Setting = (
+  props: SectionProps,
+): React.ReactElement<TouchableOpacityProps> => {
+  const {style, hint, children, ...touchableOpacityProps} = props;
 
   return (
     <React.Fragment>
@@ -17,13 +22,12 @@ export const Setting = (props: SectionProps): React.ReactElement<TouchableOpacit
         activeOpacity={1.0}
         {...touchableOpacityProps}
         style={[styles.container, style]}>
-        <Text
-          category='s2'>
+        <Text category="h5" style={{color: 'grey'}}>
           {hint}
         </Text>
         {children}
       </TouchableOpacity>
-      <Divider/>
+      <Divider />
     </React.Fragment>
   );
 };
