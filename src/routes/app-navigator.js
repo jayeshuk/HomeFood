@@ -8,6 +8,8 @@ import SettingsScreen from '../screens/profile/settings-screen';
 
 const {Navigator, Screen} = createStackNavigator();
 
+
+
 export const AppNavigator = () => (
   <NavigationContainer>
     <Navigator headerMode={false} initialRouteName="HomeScreen">
