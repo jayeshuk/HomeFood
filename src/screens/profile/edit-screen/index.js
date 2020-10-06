@@ -16,7 +16,7 @@ export default ({ navigation }) => {
     navigation && navigation.goBack();
   };
 
-  const renderPhotoButton = () => (
+  const renderPhotoButton = ()=> (
     <Button
       style={styles.editAvatarButton}
       status='basic'
@@ -65,6 +65,11 @@ export default ({ navigation }) => {
       />
       <ProfileSetting
         style={[styles.profileSetting, styles.section]}
+        hint='FavoriteCusines'
+        value={profile.FavoriteCusines}
+      />
+      <ProfileSetting
+        style={[styles.profileSetting, styles.section]}
         hint='Email'
         value={profile.email}
       />
@@ -103,9 +108,9 @@ const themedStyle = StyleService.create({
   profileSetting: {
     padding: 16,
   },
-  section: {
-    marginTop: 24,
-  },
+  // section: {
+  //   marginTop: 30,
+  // },
   doneButton: {
     marginHorizontal: 24,
     marginTop: 24,
