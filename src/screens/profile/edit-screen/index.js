@@ -1,15 +1,14 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Button, StyleService, useStyleSheet } from '@ui-kitten/components';
-import { ProfileAvatar } from './extra/profile-avatar.component';
-import { ProfileSetting } from './extra/profile-setting.component';
-import { CameraIcon } from './extra/icons';
-import { Profile } from './extra/data';
+import {ScrollView} from 'react-native';
+import {Button, StyleService, useStyleSheet} from '@ui-kitten/components';
+import {ProfileAvatar} from './extra/profile-avatar.component';
+import {ProfileSetting} from './extra/profile-setting.component';
+import {CameraIcon} from './extra/icons';
+import {Profile} from './extra/data';
 
 const profile: Profile = Profile.jenniferGreen();
 
-export default ({ navigation }) => {
-
+export default ({navigation}) => {
   const styles = useStyleSheet(themedStyle);
 
   const onDoneButtonPress = () => {
@@ -19,8 +18,8 @@ export default ({ navigation }) => {
   const renderPhotoButton = () => (
     <Button
       style={styles.editAvatarButton}
-      status='basic'
-      icon={CameraIcon}
+      status="basic"
+      accessoryLeft={CameraIcon}
     />
   );
 
@@ -35,47 +34,45 @@ export default ({ navigation }) => {
       />
       <ProfileSetting
         style={[styles.profileSetting, styles.section]}
-        hint='First Name'
+        hint="First Name"
         value={profile.firstName}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Last Name'
+        hint="Last Name"
         value={profile.lastName}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Gender'
+        hint="Gender"
         value={profile.gender}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Age'
+        hint="Age"
         value={`${profile.age}`}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Weight'
+        hint="Weight"
         value={`${profile.weight} kg`}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Height'
+        hint="Height"
         value={`${profile.height} cm`}
       />
       <ProfileSetting
         style={[styles.profileSetting, styles.section]}
-        hint='Email'
+        hint="Email"
         value={profile.email}
       />
       <ProfileSetting
         style={styles.profileSetting}
-        hint='Phone Number'
+        hint="Phone Number"
         value={profile.phoneNumber}
       />
-      <Button
-        style={styles.doneButton}
-        onPress={onDoneButtonPress}>
+      <Button style={styles.doneButton} onPress={onDoneButtonPress}>
         DONE
       </Button>
     </ScrollView>

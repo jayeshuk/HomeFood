@@ -73,7 +73,7 @@ export default () => (
         return (
           <React.Fragment key={index}>
             <ImageBackground style={styles.bgimg} source={item.thumbnail} />
-            <Text style={styles.text}>{item.title}</Text>
+            {/* <Text style={styles.text}>{item.title}</Text> */}
           </React.Fragment>
         );
       })}

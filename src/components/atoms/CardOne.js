@@ -54,11 +54,13 @@ export default class CardOne extends Component {
       <View style={styles.topContainer}>
         <Card style={styles.card}>
           <SwiperCard />
-          {/* <CardTitle
+          <CardTitle
             style={{position: 'absolute'}}
-            title="This is a title"
-            subtitle="This is subtitle"
-          /> */}
+            titleStyle={styles.text}
+            subtitleStyle={styles.text}
+            title="Food is the way to be happy !"
+            subtitle="Khamang takes you to your Home Taste"
+          />
         </Card>
       </View>
     );
@@ -83,5 +85,8 @@ const styles = StyleSheet.create({
   bullet: {
     paddingHorizontal: 5,
     fontSize: 20,
+  },
+  text: {
+    color: 'white',
   },
 });

@@ -8,6 +8,14 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
+import {
+  Card,
+  CardTitle,
+  CardContent,
+  CardAction,
+  CardButton,
+  CardImage,
+} from 'react-native-material-cards';
 import CardOne from '../../components/atoms/CardOne';
 // import Carousel from '../../components/atoms/Carousel';
 import SwiperCard from '../../components/atoms/Swiper/index';
@@ -50,6 +58,15 @@ class OrderScreen extends Component {
               ...styles.item,
             }}> */}
           <CardOne />
+          <Card style={styles.card}>
+            <CardTitle
+              style={{position: 'absolute'}}
+              titleStyle={styles.text}
+              subtitleStyle={styles.text}
+              title="Food is the way to be happy !"
+              subtitle="Khamang takes you to your Home Taste"
+            />
+          </Card>
           {/* </View> */}
         </Layout>
       </>
@@ -58,6 +75,17 @@ class OrderScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    height: ITEM_HEIGHT,
+    width: SLIDER_WIDTH,
+    flex: 1,
+    margin: 20,
+    borderRadius: 10,
+    backgroundColor: 'green',
+  },
+  text: {
+    color: 'white',
+  },
   item: {
     width: SLIDER_WIDTH,
     height: ITEM_HEIGHT,
