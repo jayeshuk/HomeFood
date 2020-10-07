@@ -1,30 +1,36 @@
 import React from 'react';
-import {
-  Divider,
-  Icon,
-  Layout,
-  Text,
-  TopNavigation,
-  TopNavigationAction,
-} from '@ui-kitten/components';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Tab, TabBar } from '@ui-kitten/components';
+import { ProductListScreen } from './product-list.component';
 
-const HistoryScreen = () => (
-  <>
-    <TopNavigation
-      style={{paddingLeft: 20}}
-      title={(TextProps) => {
-        return (
-          <Text category="h2" status="primary">
-            Order History
-          </Text>
-        );
-      }}
-      alignment="start"
+const ProductsTabBar = ({ navigation, state })=> {
+
+  const onTabSelect = (index) => {
+    navigation.navigate(state.routeNames[index]);
+  };
+
+  const renderTab = (route)=> (
+    <Tab
+      key={route}
+      title={route.toUpperCase()}
     />
-    <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text category="h1">HISTORY</Text>
-    </Layout>
-  </>
-);
+  );
 
-export default HistoryScreen;
+  return (
+    <TabBar
+      selectedIndex={state.index}
+      onSelect={onTabSelect}>
+      {state.routeNames.map(renderTab)}
+    </TabBar>
+  );
+};
+
+const TopTabs = createMaterialTopTabNavigator();
+
+export default () => (
+  <TopTabs.Navigator tabBar={(props) => <ProductsTabBar {...props}/>}>
+    {/* <TopTabs.Screen name='All' component={ProductListScreen}/> */}
+    <TopTabs.Screen name='Previous Order' component={ProductListScreen}/>
+    {/* <TopTabs.Screen name='Lighting' component={ProductListScreen}/> */}
+  </TopTabs.Navigator>
+);

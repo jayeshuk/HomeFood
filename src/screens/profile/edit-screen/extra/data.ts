@@ -9,8 +9,10 @@ export class Profile {
               readonly age: number,
               readonly weight: number,
               readonly height: number,
+              readonly FavoriteCusines:string,
               readonly email: string,
-              readonly phoneNumber: string) {
+              readonly phoneNumber: string,
+              ) {
   }
 
   public get fullName(): string {
@@ -19,15 +21,17 @@ export class Profile {
 
   static jenniferGreen(): Profile {
     return new Profile(
-      'Jennifer',
-      'Green',
-      require('../assets/image-profile.jpg'),
-      Gender.FEMALE,
+      'Rohan',
+      'Surayavanshi',
+      require('../assets/image-profile-1.jpg'),
+      Gender.MALE,
       25,
       48,
       174,
-      'jen.green@gmail.com',
-      '+375 44 846 97 68',
+      'South Indian',
+      'rosurya@gmail.com',
+      '+91 9877698991',
+      
     );
   }
 }
