@@ -26,15 +26,17 @@ const useBottomNavigationState = (initialState = 0) => {
 };
 
 const BottomTabBar = ({navigation, state}) => (
-  <BottomNavigation
-    appearance="noIndicator"
-    style={styles.bottomNavigation}
-    selectedIndex={state.index}
-    onSelect={(index) => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab title="ORDER" icon={OrderIcon} />
-    <BottomNavigationTab title="HISTORY" icon={HistoryIcon} />
-    <BottomNavigationTab title="PROFILE" icon={ProfileIcon} />
-  </BottomNavigation>
+  <Layout>
+    <BottomNavigation
+      appearance="noIndicator"
+      style={styles.bottomNavigation}
+      selectedIndex={state.index}
+      onSelect={(index) => navigation.navigate(state.routeNames[index])}>
+      <BottomNavigationTab title="ORDER" icon={OrderIcon} />
+      <BottomNavigationTab title="HISTORY" icon={HistoryIcon} />
+      <BottomNavigationTab title="PROFILE" icon={ProfileIcon} />
+    </BottomNavigation>
+  </Layout>
 );
 
 export const AppTabNavigator = () => {
@@ -61,8 +63,10 @@ export const AppTabNavigator = () => {
 
 const styles = StyleSheet.create({
   bottomNavigation: {
+    // position: 'absolute',
     marginVertical: 8,
     marginHorizontal: 12,
     borderRadius: 50,
+    elevation: 5,
   },
 });

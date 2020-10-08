@@ -7,37 +7,39 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { Button, Card, Icon, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
-import { ImageOverlay } from './extra/image-overlay.component';
-import { Product, ProductOption } from './extra/data';
+import {
+  Button,
+  Card,
+  Icon,
+  List,
+  StyleService,
+  Text,
+  useStyleSheet,
+} from '@ui-kitten/components';
+import {ImageOverlay} from './extra/image-overlay.component';
+import {Product, ProductOption} from './extra/data';
 
-const product: Product = Product.centralParkApartment();
+const product = Product.centralParkApartment();
 
-export default ()=> {
-
+export default () => {
   const styles = useStyleSheet(themedStyles);
 
-  const onBookButtonPress = () => {
-
-  };
+  const onBookButtonPress = () => {};
 
   const renderImageItem = (info) => (
-    <Image
-      style={styles.imageItem}
-      source={info.item}
-    />
+    <Image style={styles.imageItem} source={info.item} />
   );
 
   const renderOptionItemIcon = (style: ImageStyle, icon: string) => (
-    <Icon {...style} name={icon}/>
+    <Icon {...style} name={icon} />
   );
 
   const renderOptionItem = (option: ProductOption, index: number) => (
     <Button
       key={index}
       style={styles.optionItem}
-      appearance='ghost'
-      size='small'
+      appearance="ghost"
+      size="small"
       icon={(style: ImageStyle) => renderOptionItemIcon(style, option.icon)}>
       {option.title}
     </Button>
@@ -47,18 +49,15 @@ export default ()=> {
     <Button
       key={index}
       style={styles.detailItem}
-      appearance='outline'
-      size='tiny'>
+      appearance="outline"
+      size="tiny">
       {detail}
     </Button>
   );
 
   const renderBookingFooter = () => (
     <View>
-      <Text
-        category='s1'>
-        Facilities
-      </Text>
+      <Text category="s1">Facilities</Text>
       <View style={styles.detailsList}>
         {product.details.map(renderDetailItem)}
       </View>
@@ -70,51 +69,33 @@ export default ()=> {
 
   return (
     <ScrollView style={styles.container}>
-      <ImageOverlay
-        style={styles.image}
-        source={product.primaryImage}
-      />
+      <ImageOverlay style={styles.image} source={product.primaryImage} />
       <Card
         style={styles.bookingCard}
-        appearance='filled'
+        appearance="filled"
         disabled={true}
         footer={renderBookingFooter}>
-        <Text
-          style={styles.title}
-          category='h6'>
+        <Text style={styles.title} category="h6">
           {product.title}
         </Text>
-        <Text
-          style={styles.rentLabel}
-          appearance='hint'
-          category='p2'>
+        <Text style={styles.rentLabel} appearance="hint" category="p2">
           Rent House
         </Text>
-        <Text
-          style={styles.priceLabel}
-          category='h6'>
+        <Text style={styles.priceLabel} category="h6">
           {product.price.formattedValue}
           <Text>{product.price.formattedScale}</Text>
         </Text>
-        <Button
-          style={styles.bookButton}
-          onPress={onBookButtonPress}>
+        <Button style={styles.bookButton} onPress={onBookButtonPress}>
           BOOK NOW
         </Button>
       </Card>
-      <Text
-        style={styles.sectionLabel}
-        category='s1'>
+      <Text style={styles.sectionLabel} category="s1">
         About
       </Text>
-      <Text
-        style={styles.description}
-        appearance='hint'>
+      <Text style={styles.description} appearance="hint">
         {product.description}
       </Text>
-      <Text
-        style={styles.sectionLabel}
-        category='s1'>
+      <Text style={styles.sectionLabel} category="s1">
         Photos
       </Text>
       <List

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   card: {
     height: ITEM_HEIGHT,
     width: SLIDER_WIDTH,
-    flex: 1,
+    // flex: 1,
     margin: 20,
     borderRadius: 10,
   },

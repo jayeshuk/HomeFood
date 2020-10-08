@@ -53,6 +53,7 @@ export default ({navigation}) => {
         </Setting>
         <Setting style={styles.setting} hint="Notification" />
         <Setting style={styles.setting} hint="Privacy" />
+        <Setting style={styles.setting} hint="Logout" />
       </Layout>
     </>
   );

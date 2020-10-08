@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import HistoryScreen from '../screens/history';
-import orderdetails from '../screens/history';
+import HistoryScreen from '../screens/history/history-screen/';
+import OrderDetails from '../screens/history/orderdetails/';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -11,8 +11,7 @@ export default class HistoryNavigator extends Component {
     return (
       <Navigator headerMode={false} initialRouteName="HistoryScreen">
         <Screen name="HistoryScreen" component={HistoryScreen} />
-        {/* <Screen name="SettingsScreen" component={SettingsScreen} /> */}
-        <Screen name="orderdetails" component={orderdetails} />
+        <Screen name="OrderDetails" component={OrderDetails} />
       </Navigator>
     );
   }

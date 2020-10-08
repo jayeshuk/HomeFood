@@ -64,11 +64,6 @@ export default ({navigation}) => {
       />
       <ProfileSetting
         style={[styles.profileSetting, styles.section]}
-        hint="FavoriteCusines"
-        value={profile.FavoriteCusines}
-      />
-      <ProfileSetting
-        style={[styles.profileSetting, styles.section]}
         hint="Email"
         value={profile.email}
       />
@@ -76,6 +71,11 @@ export default ({navigation}) => {
         style={styles.profileSetting}
         hint="Phone Number"
         value={profile.phoneNumber}
+      />
+      <ProfileSetting
+        style={[styles.profileSetting, styles.section]}
+        hint="FavoriteCusines"
+        value={profile.FavoriteCusines}
       />
       <Button style={styles.doneButton} onPress={onDoneButtonPress}>
         DONE
@@ -105,9 +105,9 @@ const themedStyle = StyleService.create({
   profileSetting: {
     padding: 16,
   },
-  // section: {
-  //   marginTop: 30,
-  // },
+  section: {
+    marginTop: 30,
+  },
   doneButton: {
     marginHorizontal: 24,
     marginTop: 24,
