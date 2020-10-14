@@ -25,7 +25,12 @@ export default class ListCard extends Component {
   constructor(props) {
     super(props);
 
+    function handleGoToKitchen() {
+      props.nav && props.nav.navigate('MakerDetailsScreen');
+    }
+
     this.state = {
+      handleGoToKitchen,
       homemakers: [
         {
           name: 'Chef Pooja',
@@ -79,15 +84,31 @@ export default class ListCard extends Component {
         {this.state.homemakers.map((item, index) => {
           return (
             <Card key={index} style={styles.card}>
-              <TouchableOpacity style={{width: '100%'}}>
+              {/* <Layout style={{width: '100%'}}> */}
+              <TouchableOpacity
+                style={{
+                  width: '100%',
+                }}
+                onPress={this.state.handleGoToKitchen}>
                 <View style={styles.friendItem}>
                   <Avatar
                     style={{aspectRatio: 1.0, height: 100, width: 60}}
                     source={item.propic}
                   />
-                  <CardTitle title={item.name} subtitle={item.location} />
+                  <View style={{flex: 1, paddingBottom: 10}}>
+                    <CardTitle title={item.name} subtitle={item.location} />
+                    {/* <Text category="h3" style={{margin: 10}}>
+                      {item.name}
+                    </Text>
+
+                    <Text category="s2" style={{marginTop: -10, margin: 10}}>
+                      {item.location}
+                    </Text> */}
+                  </View>
                 </View>
                 <CardContent text={item.description} />
+                {/* <Text>{item.description}</Text>
+                </CardContent> */}
               </TouchableOpacity>
 
               <CardAction
@@ -100,9 +121,9 @@ export default class ListCard extends Component {
                   alignItems: 'center',
                 }}>
                 <CardButton
-                  onPress={() => {}}
+                  onPress={this.state.handleGoToKitchen}
                   title="Go to Kitchen"
-                  color="blue"
+                  // color="blue"
                   style={{
                     padding: 5,
                     width: '100%',
@@ -111,6 +132,7 @@ export default class ListCard extends Component {
                   }}
                 />
               </CardAction>
+              {/* </Layout> */}
             </Card>
           );
         })}
@@ -136,6 +158,5 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     elevation: 5,
-    // backgroundColor: 'grey',
   },
 });
