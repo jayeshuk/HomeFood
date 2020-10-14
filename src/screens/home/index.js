@@ -39,6 +39,12 @@ export const HomeScreen = ({navigation}) => {
             status="primary">
             Log In
           </Button>
+          {/* <Button
+            onPress={navigateDetails}
+            style={styles.button}
+            status="primary">
+            Sign Up
+          </Button> */}
         </Layout>
       </ImageBackground>
     </SafeAreaView>
