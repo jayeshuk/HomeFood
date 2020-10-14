@@ -3,7 +3,7 @@ import {ImageStyle} from 'react-native';
 import {Icon, IconElement} from '@ui-kitten/components';
 
 export const EmailIcon = (style: ImageStyle): IconElement => (
-  <Icon {...style} name="email" />
+  <Icon {...style} name="email" pack="eva" />
 );
 
 export const LockIcon = (style: ImageStyle): IconElement => (

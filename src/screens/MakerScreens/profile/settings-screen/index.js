@@ -34,10 +34,7 @@ export default ({navigation}) => {
       <TopNavigation
         title={(TextProps) => {
           return (
-            <Text
-              {...TextProps}
-              category="h3"
-              style={{color: 'black', fontSize: 25}}>
+            <Text {...TextProps} category="h2" status="primary" style={{}}>
               Settings
             </Text>
           );

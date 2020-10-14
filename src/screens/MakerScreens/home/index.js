@@ -16,11 +16,11 @@ import {
   CardButton,
   CardImage,
 } from 'react-native-material-cards';
-import CardOne from '../../components/atoms/CardOne';
-// import Carousel from '../../components/atoms/Carousel';
-import SwiperCard from '../../components/atoms/Swiper/index';
-import TinyCard from '../../components/atoms/TinyCard';
-import ListCard from '../../components/atoms/ListCard';
+import CardOne from '../../../components/atoms/CardOne';
+// import Carousel from '../../../components/atoms/Carousel';
+import SwiperCard from '../../../components/atoms/Swiper/index';
+import TinyCard from '../../../components/atoms/TinyCard';
+import ListCard from '../../../components/atoms/ListCard';
 
 const OrderIcon = (props) => {
   return <Icon {...props} name="home" pack="eva" />;
@@ -34,7 +34,7 @@ const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
 const {width: screenWidth} = Dimensions.get('window');
 
-class OrderScreen extends Component {
+class HomeScreen extends Component {
   render() {
     return (
       <Layout style={styles.container}>
@@ -43,7 +43,7 @@ class OrderScreen extends Component {
           title={(TextProps) => {
             return (
               <Text category="h2" status="primary">
-                Khamang
+                Khamang's Cook
               </Text>
             );
           }}
@@ -53,9 +53,6 @@ class OrderScreen extends Component {
         <ScrollView style={styles.Container}>
           <Layout style={{flex: 1}}>
             <CardOne />
-          </Layout>
-          <Layout style={{flex: 1}}>
-            <TinyCard />
           </Layout>
           <Layout style={{flex: 1}}>
             <ListCard />
@@ -73,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrderScreen;
+export default HomeScreen;
