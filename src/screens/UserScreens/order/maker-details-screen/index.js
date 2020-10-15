@@ -1,4 +1,5 @@
 import React from 'react';
+// import { ListItem, Text } from '@ui-kitten/components';
 import {
   Image,
   ImageSourcePropType,
@@ -13,11 +14,14 @@ import {
   Icon,
   List,
   StyleService,
+  Avatar,
+  ListItem,
   Text,
   useStyleSheet,
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extra/image-overlay.component';
 import {Product, ProductOption} from './extra/data';
+
 
 const product = Product.centralParkApartment();
 
@@ -65,6 +69,7 @@ export default () => {
     </View>
   );
 
+
   return (
     <ScrollView style={styles.container}>
       <ImageOverlay style={styles.image} source={product.primaryImage} />
@@ -77,7 +82,7 @@ export default () => {
           {product.title}
         </Text>
         <Text style={styles.rentLabel} appearance="hint" category="p2">
-          Rent House
+          Maharashtrian Food 
         </Text>
         <Text style={styles.priceLabel} category="h6">
           {product.price.formattedValue}
@@ -103,9 +108,11 @@ export default () => {
         data={product.images}
         renderItem={renderImageItem}
       />
+      
     </ScrollView>
   );
 };
+
 
 const themedStyles = StyleService.create({
   container: {

@@ -13,25 +13,28 @@ export class Product {
 
   static centralParkApartment(): Product {
     return new Product(
-      'Private Rooms with Central Park View',
-      'The apartment consists of 2 separate bedrooms, 1 bathroom with a hair dryer. A flat-screen TV and Blu-ray player are available.\n' +
+      'Chef Pooja',
+      'A standard thali will have three veggies, kadhi, dal rice, dal khichdi, chapati, bhakri, thalipeeth, dahi wada, papad, cucumber salad and two sweets.\n' +
       '\n' +
-      'Rodin Museum is 4.2 km from the apartment, while Orsay Museum is 5 km away. The nearest airport is Paris - Orly Airport, 13 km from the property.',
+      'On Sundays, the thali has puri and chapati, masala rice, dhokla, bhaji, three veggies, dahi wada, papad, salad and two sweets.',
       ProductPrice.tenDollarsPerNight(),
       require('../assets/image-product.jpg'),
       [
-        require('../assets/image-product.jpg'),
-        require('../assets/image-product.jpg'),
+        require('../assets/image-product1.jpg'),
+        require('../assets/image-product2.jpg'),
+        require('../assets/image-product3.jpg'),
+        require('../assets/image-product4.jpg'),
+        require('../assets/image-product5.jpg'),
         require('../assets/image-product.jpg'),
       ],
       [
-        '2 Guests',
-        '2 Bad',
-        '2 Bath',
+        'SALAD',
+        'BUTTER MILK',
+        'SWEET',
       ],
       [
         ProductOption.wifiOption(),
-        ProductOption.tvOption(),
+        //ProductOption.tvOption(),
         ProductOption.parkingOption(),
       ],
     );
@@ -65,15 +68,15 @@ export class ProductOption {
   }
 
   static wifiOption(): ProductOption {
-    return new ProductOption('wifi', 'Wi-Fi');
+    return new ProductOption('wifi', 'VEGITARIAN');
   }
 
-  static tvOption(): ProductOption {
-    return new ProductOption('tv', 'TV');
-  }
+  // static tvOption(): ProductOption {
+  //   return new ProductOption('tv', '');
+  // }
 
   static parkingOption(): ProductOption {
-    return new ProductOption('car', 'Free Parking');
+    return new ProductOption('car', 'TASTY');
   }
 }
 
