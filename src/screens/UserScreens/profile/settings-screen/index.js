@@ -12,13 +12,13 @@ import {CommonActions} from '@react-navigation/native';
 import {Setting} from './extra/settings-section.component';
 
 export default ({navigation}) => {
-  const [soundEnabled, setSoundEnabled] = React.useState(false);
+  const [darkEnabled, setDarkEnabled] = React.useState(false);
   const navigateBack = () => {
     navigation.goBack();
   };
 
-  const toggleSound = () => {
-    setSoundEnabled(!soundEnabled);
+  const toggleDark = () => {
+    setDarkEnabled(!darkEnabled);
   };
 
   const BackIcon = (evaProps) => (
@@ -45,8 +45,8 @@ export default ({navigation}) => {
       <Layout style={styles.container}>
         <Setting style={styles.setting} hint="Language" />
         <Setting style={styles.setting} hint="My Address Book" />
-        <Setting style={styles.setting} hint="Dark Mode" onPress={toggleSound}>
-          <Toggle checked={soundEnabled} onChange={toggleSound} />
+        <Setting style={styles.setting} hint="Dark Mode" onPress={toggleDark}>
+          <Toggle checked={darkEnabled} onChange={toggleDark} />
         </Setting>
         <Setting style={styles.setting} hint="Notification" />
         <Setting style={styles.setting} hint="Privacy" />

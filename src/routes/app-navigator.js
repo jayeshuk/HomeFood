@@ -11,10 +11,10 @@ const {Navigator, Screen} = createStackNavigator();
 export const AppNavigator = () => (
   <NavigationContainer>
     <Navigator headerMode={false} initialRouteName="HomeScreen">
-      {/* <Screen name="LoginScreen" component={LoginScreen} /> */}
-      {/* <Screen name="SignupScreen" component={SignupScreen} /> */}
-      <Screen name="AppTabNavigator" component={AppTabNavigator} />
-      {/* <Screen name="MakerTabNavigator" component={MakerTabNavigator} /> */}
+      {/* <Screen name="LoginScreen" component={LoginScreen} />
+      <Screen name="SignupScreen" component={SignupScreen} /> */}
+      {/* <Screen name="AppTabNavigator" component={AppTabNavigator} /> */}
+      <Screen name="MakerTabNavigator" component={MakerTabNavigator} />
     </Navigator>
   </NavigationContainer>
 );
