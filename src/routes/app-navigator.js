@@ -13,8 +13,8 @@ export const AppNavigator = () => (
     <Navigator headerMode={false} initialRouteName="HomeScreen">
       {/* <Screen name="LoginScreen" component={LoginScreen} />
       <Screen name="SignupScreen" component={SignupScreen} /> */}
-      <Screen name="AppTabNavigator" component={AppTabNavigator} />
-      {/* <Screen name="MakerTabNavigator" component={MakerTabNavigator} /> */}
+      {/* <Screen name="AppTabNavigator" component={AppTabNavigator} /> */}
+      <Screen name="MakerTabNavigator" component={MakerTabNavigator} />
     </Navigator>
   </NavigationContainer>
 );

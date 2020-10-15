@@ -7,20 +7,8 @@ import {
   Text,
   TopNavigation,
   TopNavigationAction,
+  Toggle,
 } from '@ui-kitten/components';
-import {
-  Card,
-  CardTitle,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
-import CardOne from '../../../components/atoms/CardOne';
-// import Carousel from '../../../components/atoms/Carousel';
-import SwiperCard from '../../../components/atoms/Swiper/index';
-import TinyCard from '../../../components/atoms/TinyCard';
-import ListCard from '../../../components/atoms/ListCard';
 
 const OrderIcon = (props) => {
   return <Icon {...props} name="home" pack="eva" />;
@@ -29,39 +17,49 @@ function SearchIcon(props) {
   return <Icon {...props} name="search-outline" pack="eva" />;
 }
 
-const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
-const {width: screenWidth} = Dimensions.get('window');
+export default () => {
+  const SLIDER_WIDTH = Dimensions.get('window').width;
+  const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+  const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
+  const {width: screenWidth} = Dimensions.get('window');
 
-class HomeScreen extends Component {
-  render() {
-    return (
-      <Layout style={styles.container}>
-        <TopNavigation
-          style={{paddingLeft: 20}}
-          title={(TextProps) => {
-            return (
-              <Text category="h2" status="primary">
-                Khamang's Cook
-              </Text>
-            );
-          }}
-          alignment="start"
-        />
-        <Divider />
-        <ScrollView style={styles.Container}>
-          <Layout style={{flex: 1}}>
-            <CardOne />
-          </Layout>
-          <Layout style={{flex: 1}}>
-            <ListCard />
-          </Layout>
-        </ScrollView>
+  const [shopEnabled, setShopEnabled] = React.useState(false);
+
+  const toggleShop = () => {
+    setShopEnabled(!shopEnabled);
+  };
+
+  const renderRightActions = () => (
+    <Toggle
+      status="success"
+      style={{paddingRight: 15, paddingTop: 5}}
+      checked={shopEnabled}
+      onPress={toggleShop}
+      onChange={toggleShop}
+    />
+  );
+
+  return (
+    <Layout style={styles.container}>
+      <TopNavigation
+        style={{paddingLeft: 20}}
+        title={(TextProps) => {
+          return (
+            <Text category="h2" status="primary">
+              Khamang's &nbsp; Cook
+            </Text>
+          );
+        }}
+        accessoryRight={renderRightActions}
+        alignment="start"
+      />
+      <Divider />
+      <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text category="h5">Waiting for Orders to Recieve...</Text>
       </Layout>
-    );
-  }
-}
+    </Layout>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -69,5 +67,3 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 });
-
-export default HomeScreen;

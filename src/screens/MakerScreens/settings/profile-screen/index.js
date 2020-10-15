@@ -55,9 +55,9 @@ export default ProfileScreen = ({navigation}) => {
     navigation && navigation.navigate('EditScreen');
   };
 
-  const onSettingsPress = () => {
-    navigation && navigation.navigate('SettingsScreen');
-  };
+  // const onSettingsPress = () => {
+  //   navigation && navigation.navigate('SettingsScreen');
+  // };
 
   const renderFriendItem = (info) => (
     <View style={styles.friendItem}>
@@ -82,7 +82,7 @@ export default ProfileScreen = ({navigation}) => {
       <ScrollView style={styles.container}>
         <ImageOverlay
           style={styles.header}
-          source={require('../../../assets/images/image-background.jpg')}>
+          source={require('../../../../assets/images/image-background.jpg')}>
           <Avatar style={styles.profileAvatar} source={profile.photo} />
           <Text style={styles.profileName} category="h5" status="control">
             {profile.fullName}
@@ -101,13 +101,6 @@ export default ProfileScreen = ({navigation}) => {
               onPress={onEditPress}>
               EDIT PROFILE
             </Button>
-            <Button
-              style={styles.profileButton}
-              status="control"
-              accessoryLeft={SettingsIcon}
-              onPress={onSettingsPress}>
-              SETTINGS
-            </Button>
           </View>
         </ImageOverlay>
 
@@ -123,10 +116,10 @@ export default ProfileScreen = ({navigation}) => {
           data={friends}
           renderItem={renderFriendItem}
         />
-        <Text style={styles.sectionLabel} category="s1">
+        {/* <Text style={styles.sectionLabel} category="s1">
           Saved Dishes
         </Text>
-        <List data={posts} numColumns={3} renderItem={renderPostItem} />
+        <List data={posts} numColumns={3} renderItem={renderPostItem} /> */}
       </ScrollView>
     </View>
   );

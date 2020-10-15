@@ -6,20 +6,21 @@ import {
   Icon,
 } from '@ui-kitten/components';
 // import {NavigationContainer} from '@react-navigation/native';
-import {Text, Layout} from '@ui-kitten/components';
+import {Layout} from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import OrderNavigator from './order-navigator';
-// import HistoryNavigator from './history-navigator';
-import ProfileNavigator from '../UserNavs/profile-navigator';
-import Home from './Home';
-import HomeScreen from '../../screens/MakerScreens/home';
+import InboxNavigator from './inbox-navigator';
+import InsightsNavigator from './insights-navigator';
+import MenuNavigator from './menu-navigator';
+import SettingsNavigator from './settings-navigator';
+import Learn from '../../screens/MakerScreens/learn';
 
-const HomeIcon = (props) => <Icon {...props} name="home" pack="material" />;
+const MenuIcon = (props) => <Icon {...props} name="menu" pack="material" />;
 const InboxIcon = (props) => <Icon {...props} name="inbox" pack="eva" />;
 const LearnIcon = (props) => <Icon {...props} name="video" pack="eva" />;
 // const LearnIcon = (props) => <Icon {...props} name="book-open" pack="eva" />;
-const ProfileIcon = (props) => (
-  <Icon {...props} name="person" pack="material" />
+const InsightIcon = (props) => <Icon {...props} name="bar-chart" pack="eva" />;
+const SettingsIcon = (props) => (
+  <Icon {...props} name="settings" pack="material" />
 );
 
 const {Navigator, Screen} = createBottomTabNavigator();
@@ -36,10 +37,11 @@ const BottomTabBar = ({navigation, state}) => (
       style={styles.bottomNavigation}
       selectedIndex={state.index}
       onSelect={(index) => navigation.navigate(state.routeNames[index])}>
-      <BottomNavigationTab title="HOME" icon={HomeIcon} />
-      <BottomNavigationTab title="ORDERS" icon={InboxIcon} />
+      <BottomNavigationTab title="HOME" icon={InboxIcon} />
+      <BottomNavigationTab title="MENU" icon={MenuIcon} />
+      <BottomNavigationTab title="INSIGHTS" icon={InsightIcon} />
       <BottomNavigationTab title="LEARN" icon={LearnIcon} />
-      <BottomNavigationTab title="PROFILE" icon={ProfileIcon} />
+      <BottomNavigationTab title="SETTINGS" icon={SettingsIcon} />
     </BottomNavigation>
   </Layout>
 );
@@ -51,21 +53,26 @@ export const MakerTabNavigator = () => {
   return (
     <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Screen
-        name="HomeNavigator"
+        name="InboxNavigator"
         options={{title: 'Order Khamang'}}
-        component={HomeScreen}
+        component={InboxNavigator}
       />
       <Screen
-        name="InboxNavigator"
+        name="MenuNavigator"
         options={{title: 'Orders Received'}}
-        component={Home}
+        component={MenuNavigator}
+      />
+      <Screen
+        name="InsightsNavigator"
+        options={{title: 'Orders Received'}}
+        component={InsightsNavigator}
       />
       <Screen
         name="LearnNavigator"
         options={{title: 'Learn, Cook and Earn'}}
-        component={Home}
+        component={Learn}
       />
-      <Screen name="ProfileNavigator" component={ProfileNavigator} />
+      <Screen name="SettingsNavigator" component={SettingsNavigator} />
     </Navigator>
   );
 };
