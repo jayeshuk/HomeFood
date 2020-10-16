@@ -12,7 +12,7 @@ import InboxNavigator from './inbox-navigator';
 import InsightsNavigator from './insights-navigator';
 import MenuNavigator from './menu-navigator';
 import SettingsNavigator from './settings-navigator';
-import Learn from '../../screens/MakerScreens/learn';
+import LearnNavigator from './learn-navigator';
 
 const MenuIcon = (props) => <Icon {...props} name="menu" pack="material" />;
 const InboxIcon = (props) => <Icon {...props} name="inbox" pack="eva" />;
@@ -70,7 +70,7 @@ export const MakerTabNavigator = () => {
       <Screen
         name="LearnNavigator"
         options={{title: 'Learn, Cook and Earn'}}
-        component={Learn}
+        component={LearnNavigator}
       />
       <Screen name="SettingsNavigator" component={SettingsNavigator} />
     </Navigator>

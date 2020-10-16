@@ -4,3 +4,5 @@
 [1002/000512.016:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [1002/000512.804:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [1002/000512.805:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[1016/171251.512:ERROR:crash_report_database_win.cc(498)] failed to stat report
+[1016/171251.540:ERROR:crash_report_database_win.cc(498)] failed to stat report
