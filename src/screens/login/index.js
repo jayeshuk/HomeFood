@@ -8,19 +8,27 @@ import {
   TabView,
   Text,
   useStyleSheet,
+  Select,
+  SelectItem,
 } from '@ui-kitten/components';
+import {
+  EmailIcon,
+  EyeIcon,
+  EyeOffIcon,
+  FacebookIcon,
+  GoogleIcon,
+  PersonIcon,
+  PlusIcon,
+  TwitterIcon,
+  LockIcon,
+} from './extra/icons';
 import {ImageOverlay} from './extra/image-overlay.component';
-import {EmailIcon, LockIcon, PhoneIcon} from './extra/icons';
 import {KeyboardAvoidingView} from './extra/3rd-party';
 
 export default ({navigation}) => {
-  const [selectedTabIndex, setSelectedTabIndex] = React.useState(0);
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const [phoneNumber, setPhoneNumber] = React.useState();
-  const [smsCode, setSMSCode] = React.useState();
-  const [smsCodeVisible, setSMSCodeVisible] = React.useState(false);
 
   const styles = useStyleSheet(themedStyles);
 
@@ -36,10 +44,6 @@ export default ({navigation}) => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const onSMSCodeIconPress = () => {
-    setSMSCodeVisible(!smsCodeVisible);
-  };
-
   return (
     <KeyboardAvoidingView>
       <ImageOverlay
@@ -53,60 +57,27 @@ export default ({navigation}) => {
             Sign in to your account with Email or SMS
           </Text>
         </View>
-        <TabView
-          style={styles.tabView}
-          tabBarStyle={styles.tabBar}
-          indicatorStyle={styles.tabViewIndicator}
-          selectedIndex={selectedTabIndex}
-          onSelect={setSelectedTabIndex}>
-          <Tab titleStyle={styles.tabTitle} title="EMAIL">
-            <View style={styles.tabContentContainer}>
-              <Input
-                status="control"
-                placeholder="Email"
-                accessoryLeft={EmailIcon}
-                value={email}
-                onChangeText={setEmail}
-              />
-              <Input
-                style={styles.formInput}
-                status="control"
-                placeholder="Password"
-                secureTextEntry={!passwordVisible}
-                accessoryLeft={LockIcon}
-                value={password}
-                onChangeText={setPassword}
-                onIconPress={onPasswordIconPress}
-              />
-            </View>
-          </Tab>
-          <Tab titleStyle={styles.tabTitle} title="SMS">
-            <View>
-              <View style={styles.tabContentContainer}>
-                <Input
-                  status="control"
-                  placeholder="Phone Number"
-                  accessoryLeft={PhoneIcon}
-                  value={phoneNumber}
-                  onChangeText={setPhoneNumber}
-                />
-                <Input
-                  style={styles.formInput}
-                  status="control"
-                  placeholder="SMS Code"
-                  secureTextEntry={!smsCodeVisible}
-                  accessoryLeft={LockIcon}
-                  value={smsCode}
-                  onChangeText={setSMSCode}
-                  onIconPress={onSMSCodeIconPress}
-                />
-              </View>
-              <Text style={styles.smsCaptionLabel} appearance="hint">
-                within a minute you should receive an SMS with the code
-              </Text>
-            </View>
-          </Tab>
-        </TabView>
+
+        <View style={styles.tabContentContainer}>
+          <Input
+            status="control"
+            placeholder="Email or Phone"
+            accessoryLeft={EmailIcon}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Input
+            style={styles.formInput}
+            status="control"
+            placeholder="Password"
+            secureTextEntry={!passwordVisible}
+            accessoryLeft={LockIcon}
+            value={password}
+            onChangeText={setPassword}
+            onIconPress={onPasswordIconPress}
+          />
+        </View>
+
         <Button
           style={styles.signInButton}
           size="giant"
@@ -120,6 +91,31 @@ export default ({navigation}) => {
           onPress={onSignUpButtonPress}>
           Don't have an account? Sign Up
         </Button>
+        <View style={styles.socialAuthContainer}>
+          <Text style={styles.socialAuthHintText} status="control">
+            Or Sign In Using Social Media
+          </Text>
+          <View style={styles.socialAuthButtonsContainer}>
+            <Button
+              appearance="ghost"
+              size="giant"
+              status="control"
+              accessoryLeft={FacebookIcon}
+            />
+            <Button
+              appearance="ghost"
+              size="giant"
+              status="control"
+              accessoryLeft={GoogleIcon}
+            />
+            <Button
+              appearance="ghost"
+              size="giant"
+              status="control"
+              accessoryLeft={TwitterIcon}
+            />
+          </View>
+        </View>
       </ImageOverlay>
     </KeyboardAvoidingView>
   );
@@ -143,18 +139,6 @@ const themedStyles = StyleService.create({
     marginTop: 8,
     textAlign: 'center',
   },
-  tabView: {
-    flex: 1,
-  },
-  tabBar: {
-    backgroundColor: 'transparent',
-  },
-  tabViewIndicator: {
-    backgroundColor: 'text-control-color',
-  },
-  tabTitle: {
-    color: 'text-control-color',
-  },
   tabContentContainer: {
     padding: 16,
   },
@@ -171,5 +155,20 @@ const themedStyles = StyleService.create({
   signUpButton: {
     marginVertical: 12,
     marginHorizontal: 16,
+  },
+  select: {
+    flex: 1,
+    // marginHorizontal: 2,
+  },
+  socialAuthContainer: {
+    marginTop: 24,
+  },
+  socialAuthButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  socialAuthHintText: {
+    alignSelf: 'center',
+    marginBottom: 16,
   },
 });

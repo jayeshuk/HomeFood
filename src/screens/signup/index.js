@@ -7,6 +7,8 @@ import {
   StyleService,
   Text,
   useStyleSheet,
+  RadioGroup,
+  Radio,
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extra/image-overlay.component';
 import {ProfileAvatar} from './extra/profile-avatar.component';
@@ -28,6 +30,7 @@ export default ({navigation}) => {
   const [password, setPassword] = React.useState();
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const styles = useStyleSheet(themedStyles);
 
@@ -65,7 +68,24 @@ export default ({navigation}) => {
           />
         </View>
         <View style={styles.formContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
+            <Text category="h6" status="control">
+              Role:
+            </Text>
+            <RadioGroup
+              status="control"
+              selectedIndex={selectedIndex}
+              onChange={(index) => setSelectedIndex(index)}>
+              <Radio>User</Radio>
+              <Radio>Maker</Radio>
+            </RadioGroup>
+          </View>
           <Input
+            style={styles.formInput}
             status="control"
             autoCapitalize="none"
             placeholder="User Name"
@@ -77,7 +97,7 @@ export default ({navigation}) => {
             style={styles.formInput}
             status="control"
             autoCapitalize="none"
-            placeholder="Email"
+            placeholder="Email or Phone"
             accessoryLeft={EmailIcon}
             value={email}
             onChangeText={setEmail}

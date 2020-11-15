@@ -72,7 +72,7 @@ export default function Menu() {
     },
   ];
   const [activeChecked, setActiveChecked] = React.useState(false);
-  const renderItem = (info) => {
+  const renderCard = (info) => {
     return (
       <Card
         style={styles.item}
@@ -145,7 +145,7 @@ export default function Menu() {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
           data={DATA}
-          renderItem={renderItem}
+          renderItem={renderCard}
         />
       </Layout>
     </Layout>

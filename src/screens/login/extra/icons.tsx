@@ -13,3 +13,20 @@ export const LockIcon = (style: ImageStyle): IconElement => (
 export const PhoneIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="phone" />
 );
+
+export const FacebookIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="facebook" pack="eva" />
+);
+
+export const GoogleIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="google" pack="eva" />
+);
+
+export const PersonIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="person" pack="eva" />
+);
+
+export const TwitterIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="twitter" pack="eva" />
+);
+

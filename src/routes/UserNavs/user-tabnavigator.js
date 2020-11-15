@@ -39,7 +39,7 @@ const BottomTabBar = ({navigation, state}) => (
   </Layout>
 );
 
-export const AppTabNavigator = () => {
+export const UserTabNavigator = () => {
   const topState = useBottomNavigationState();
   const bottomState = useBottomNavigationState();
 
