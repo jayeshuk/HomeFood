@@ -20,6 +20,7 @@ import {
   MenuItem,
   Card,
 } from '@ui-kitten/components';
+import {cos} from 'react-native-reanimated';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -203,15 +204,6 @@ export default function Menu({navigation}) {
   ];
   const [activeChecked, setActiveChecked] = React.useState(false);
 
-  const AddCategory = () => {
-    return (
-      <View style={{flexDirection: 'row'}}>
-        {/* <Icon name="trash-2" pack="eva" /> */}
-        <Text category="h6"> + New Category </Text>
-      </View>
-    );
-  };
-
   const renderCard = (menu) => {
     return (
       <Card
@@ -266,17 +258,38 @@ export default function Menu({navigation}) {
     );
   };
 
+  const PlusIcon = (props) => {
+    // console.log(props);
+    return (
+      <Icon
+        {...props}
+        style={[props.style, {marginHorizontal: 0}]}
+        name="plus-circle"
+        pack="eva"
+      />
+    );
+  };
+
+  const NewCategory = () => {
+    return (
+      <Button accessoryLeft={PlusIcon} appearance="filled" status="control">
+        New Category
+      </Button>
+    );
+  };
+
   return (
     <Layout style={styles.container} level="1">
       <TopNavigation
+        style={{maxHeight: '10%'}}
         title={(TextProps) => {
           return (
-            <Text category="h2" status="primary">
+            <Text style={{marginLeft: 10}} category="h2" status="primary">
               Menu
             </Text>
           );
         }}
-        accessoryRight={AddCategory}
+        accessoryRight={NewCategory}
         alignment="start"
       />
       <Divider />
