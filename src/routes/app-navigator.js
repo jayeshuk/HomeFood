@@ -16,7 +16,7 @@ export const AppNavigator = () => (
       <Screen name="SignupScreen" component={SignupScreen} />
       <Screen name="UserTabNavigator" component={UserTabNavigator} />
       <Screen name="MakerTabNavigator" component={MakerTabNavigator} />
-      <Screen name="TempSwitch" component={LoginScreen} />
+      <Screen name="TempSwitch" component={TempSwitch} />
     </Navigator>
   </NavigationContainer>
 );

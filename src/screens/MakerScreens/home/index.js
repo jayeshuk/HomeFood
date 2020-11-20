@@ -56,6 +56,7 @@ export default () => {
       <Divider />
       <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text category="h5">Waiting for Orders to Recieve...</Text>
+        <Text category="h5">{String(shopEnabled)} </Text>
       </Layout>
     </Layout>
   );

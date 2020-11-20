@@ -33,3 +33,15 @@ export const PlusIcon = (style: ImageStyle): IconElement => (
 export const TwitterIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="twitter" pack="eva" />
 );
+
+export const AgeIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="calendar" pack="eva" />
+);
+
+export const AddressIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="pin" pack="eva" />
+);
+
+export const StoreIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="store" pack="material" />
+);

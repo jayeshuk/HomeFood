@@ -9,6 +9,7 @@ import {
   useStyleSheet,
   RadioGroup,
   Radio,
+  Datepicker,
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extra/image-overlay.component';
 import {ProfileAvatar} from './extra/profile-avatar.component';
@@ -21,17 +22,28 @@ import {
   PersonIcon,
   PlusIcon,
   TwitterIcon,
+  AgeIcon,
+  StoreIcon,
+  AddressIcon,
 } from './extra/icons';
 import {KeyboardAvoidingView} from './extra/3rd-party';
+import {add} from 'react-native-reanimated';
 
 export default ({navigation}) => {
-  const [userName, setUserName] = React.useState();
+  const [kitchenName, setKitchenName] = React.useState();
+  const [firstName, setFirstName] = React.useState();
+  const [lastName, setLastName] = React.useState();
+  const [address, setAddress] = React.useState();
+  const [age, setAge] = React.useState();
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [date, setDate] = React.useState();
 
+  const minDate = new Date(2018, 11, 24, 10, 33, 30, 0);
+  const maxDate = new Date();
   const styles = useStyleSheet(themedStyles);
 
   const onSignUpButtonPress = () => {
@@ -66,32 +78,56 @@ export default ({navigation}) => {
             source={require('./assets/image-person.png')}
             editButton={renderPhotoButton}
           />
+          <View style={{marginTop: 20}}>
+            <View
+              style={{
+                flexDirection: 'row',
+              }}>
+              <Text
+                category="h6"
+                status="control"
+                style={{alignSelf: 'center'}}>
+                Role :{'  '}
+              </Text>
+              <RadioGroup
+                style={{flexDirection: 'row'}}
+                status="control"
+                selectedIndex={selectedIndex}
+                onChange={(index) => setSelectedIndex(index)}>
+                <Radio>User</Radio>
+                <Radio>Maker</Radio>
+              </RadioGroup>
+            </View>
+            <Input
+              style={styles.formInput}
+              status="control"
+              autoCapitalize="none"
+              placeholder="First Name"
+              accessoryLeft={PersonIcon}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+            <Input
+              style={styles.formInput}
+              status="control"
+              autoCapitalize="none"
+              placeholder="Last Name"
+              accessoryLeft={PersonIcon}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+          </View>
         </View>
         <View style={styles.formContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-            }}>
-            <Text category="h6" status="control">
-              Role:
-            </Text>
-            <RadioGroup
-              status="control"
-              selectedIndex={selectedIndex}
-              onChange={(index) => setSelectedIndex(index)}>
-              <Radio>User</Radio>
-              <Radio>Maker</Radio>
-            </RadioGroup>
-          </View>
           <Input
             style={styles.formInput}
             status="control"
             autoCapitalize="none"
-            placeholder="User Name"
-            accessoryLeft={PersonIcon}
-            value={userName}
-            onChangeText={setUserName}
+            placeholder="Kitchen Name"
+            disabled={!selectedIndex ? true : false}
+            accessoryLeft={StoreIcon}
+            value={kitchenName}
+            onChangeText={setKitchenName}
           />
           <Input
             style={styles.formInput}
@@ -105,9 +141,27 @@ export default ({navigation}) => {
           <Input
             style={styles.formInput}
             status="control"
+            placeholder="Age"
+            accessoryLeft={AgeIcon}
+            value={age}
+            onChangeText={setAge}
+          />
+          <Input
+            style={styles.formInput}
+            status="control"
+            autoCapitalize="none"
+            placeholder="Address"
+            accessoryLeft={AddressIcon}
+            value={address}
+            onChangeText={setAddress}
+          />
+
+          <Input
+            style={styles.formInput}
+            status="control"
             autoCapitalize="none"
             secureTextEntry={!passwordVisible}
-            placeholder="Password"
+            placeholder="Set New Password"
             accessoryLeft={passwordVisible ? EyeIcon : EyeOffIcon}
             value={password}
             onChangeText={setPassword}
@@ -124,7 +178,7 @@ export default ({navigation}) => {
         </View>
         <Button
           style={styles.signUpButton}
-          size="giant"
+          size="medium"
           onPress={onSignUpButtonPress}>
           SIGN UP
         </Button>
@@ -135,19 +189,19 @@ export default ({navigation}) => {
           <View style={styles.socialAuthButtonsContainer}>
             <Button
               appearance="ghost"
-              size="giant"
+              size="medium"
               status="control"
               accessoryLeft={FacebookIcon}
             />
             <Button
               appearance="ghost"
-              size="giant"
+              size="medium"
               status="control"
               accessoryLeft={GoogleIcon}
             />
             <Button
               appearance="ghost"
-              size="giant"
+              size="medium"
               status="control"
               accessoryLeft={TwitterIcon}
             />
@@ -170,14 +224,17 @@ const themedStyles = StyleService.create({
     flex: 1,
   },
   headerContainer: {
-    justifyContent: 'center',
+    // backgroundColor: 'red',
     alignItems: 'center',
     minHeight: 176,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   profileAvatar: {
-    width: 92,
-    height: 92,
-    borderRadius: 46,
+    // backgroundColor: 'red',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     alignSelf: 'center',
     backgroundColor: 'background-basic-color-1',
     tintColor: 'text-hint-color',
@@ -189,7 +246,7 @@ const themedStyles = StyleService.create({
   },
   formContainer: {
     flex: 1,
-    paddingTop: 32,
+    paddingTop: 0,
     paddingHorizontal: 16,
   },
   formInput: {
@@ -203,6 +260,7 @@ const themedStyles = StyleService.create({
     // color: 'black',
   },
   signUpButton: {
+    marginTop: 16,
     marginHorizontal: 16,
   },
   signInButton: {

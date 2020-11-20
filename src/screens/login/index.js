@@ -4,12 +4,10 @@ import {
   Button,
   Input,
   StyleService,
-  Tab,
-  TabView,
   Text,
   useStyleSheet,
-  Select,
-  SelectItem,
+  Radio,
+  RadioGroup,
 } from '@ui-kitten/components';
 import {
   EmailIcon,
@@ -29,6 +27,8 @@ export default ({navigation}) => {
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  // console.log(selectedIndex);
 
   const styles = useStyleSheet(themedStyles);
 
@@ -59,7 +59,27 @@ export default ({navigation}) => {
         </View>
 
         <View style={styles.tabContentContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
+            <Text category="h6" status="control" style={{alignSelf: 'center'}}>
+              Role :
+            </Text>
+            <RadioGroup
+              style={{flexDirection: 'row'}}
+              status="control"
+              selectedIndex={selectedIndex}
+              onChange={(index) => {
+                setSelectedIndex(index);
+              }}>
+              <Radio>User</Radio>
+              <Radio>Maker</Radio>
+            </RadioGroup>
+          </View>
           <Input
+            style={styles.formInput}
             status="control"
             placeholder="Email or Phone"
             accessoryLeft={EmailIcon}
