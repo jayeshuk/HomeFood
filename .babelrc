@@ -9,17 +9,18 @@
           ],
         "alias": {
             "src": "./src",
-            "_assets": "./src/assets/*",
-            "_components": "./src/components/*",
-            "_atoms": "./src/components/atoms/*",
-            "_molecules": "./src/components/molecules/*",
-            "_organisms": "./src/components/organisms/*",
-            "_routes": "./src/routes/*",
+            "_assets": "./src/assets/",
+            "_components": "./src/components/",
+            "_atoms": "./src/components/atoms/",
+            "_molecules": "./src/components/molecules/",
+            "_organisms": "./src/components/organisms/",
+            "_routes": "./src/routes/",
+            "_redux_store": "./src/redux-store/",
             "_screens_login": "./src/screens/login/",
             "_screens_signup": "./src/screens/signup/",
-            "_services": "./src/services/*",
-            "_styles": "./src/styles/*",
-            "_utils": "./src/utils/*"
+            "_services": "./src/services/",
+            "_styles": "./src/styles/",
+            "_utils": "./src/utils/"
          }
         } 
       ] 
