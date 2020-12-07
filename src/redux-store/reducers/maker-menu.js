@@ -9,12 +9,6 @@ import {
   DELETE_CATEGORY,
   EDIT_CATEGORY,
   CHECK_DISH,
-  TOGGLE_CATEGORY_MODAL,
-  TOGGLE_DISH_MODAL,
-  TOGGLE_CATEGORY_MENU,
-  CATEGORY_INPUT,
-  DISH_INPUT,
-  DISH_INPUT2,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -68,29 +62,16 @@ const initialState = {
       ],
     },
   ],
-  CategoryModal: false,
-  DishModal: false,
-  CategoryMenu: false,
-  Tooltip: false,
-  newCategoryTitle: '',
-  newDishTitle: '',
-  newDishDescription: '',
 };
 
 const maker_menu = (state = initialState, action) => {
   switch (action.type) {
-    case CATEGORY_INPUT:
-      return produce(state, (newState) => {
-        console.log(action.payload);
-        newState.newCategoryTitle = action.payload;
-      });
     case ADD_CATEGORY:
       return produce(state, (newState) => {
         newState.menu.push({
           categoryName: action.payload,
           dishes: null,
         });
-        newState.newCategoryTitle = '';
       });
 
     case CHECK_DISH:
@@ -99,29 +80,6 @@ const maker_menu = (state = initialState, action) => {
           action.payload.dishId
         ].available = true;
       });
-    case TOGGLE_CATEGORY_MODAL:
-      return produce(state, (newState) => {
-        // console.log(action.payload);
-        newState.CategoryModal = action.payload;
-      });
-    case TOGGLE_CATEGORY_MENU:
-      return produce(state, (newState) => {
-        newState.CategoryMenu = action.payload;
-      });
-    case TOGGLE_DISH_MODAL:
-      return produce(state, (newState) => {
-        newState.DishModal = action.payload;
-      });
-    case DISH_INPUT:
-      return produce(state, (newState) => {
-        // console.log(action.payload);
-        newState.newDishTitle = action.payload;
-      });
-    case DISH_INPUT2:
-      return produce(state, (newState) => {
-        console.log(action.payload);
-        newState.newDishDescription = action.payload;
-      });
 
     case ADD_DISH:
       return produce(state, (newState) => {
@@ -129,8 +87,6 @@ const maker_menu = (state = initialState, action) => {
           title: action.payload.title,
           dishes: null,
         });
-        newState.newDishTitle = '';
-        newState.newDishDescription = '';
       });
 
     default:

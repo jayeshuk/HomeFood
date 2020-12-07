@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
   Avatar,
   Button,
@@ -18,120 +18,63 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
+import {useSelector, useDispatch} from 'react-redux';
+import {SLIDER_WIDTH, ITEM_WIDTH, ITEM_HEIGHT, width} from '_utils/dimensions';
 import {
-  selectDish,
-  deselectDish,
-  addCategory,
-  toggleDishModal,
-  checkDish,
-  dishInput,
-  dishInput2,
-  toggleCategoryMenu,
-} from '_redux_store/actions';
-import {connect} from 'react-redux';
+  CloseIcon,
+  EditDeleteIcon,
+  BackIcon,
+  MoreVerticalIcon,
+  AddIcon,
+} from '../extras/icons';
 
-const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
-const {width: screenWidth} = Dimensions.get('window');
+const renderListItem = ({item, index}) => (
+  <ListItem
+    accessoryLeft={Thumbnail}
+    accessoryRight={EditDeleteIcon}
+    title={item.name}
+    description={item.description}
+  />
+);
 
-class CategoryDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      index: null,
-    };
-    console.log(this.props.route.params);
-  }
+const Thumbnail = (props) => {
+  return (
+    <Avatar
+      style={styles.avatar}
+      shape="square"
+      source={require('_assets/images/halwa.jpg')}
+    />
+  );
+};
 
-  render() {
-    let index = null;
-    const onItemSelect = (item) => {
-      index = item;
-      this.props.changeCategoryMenu(false);
-    };
+function CategoryDetails({route, navigation}) {
+  const {categoryName, dishes} = route.params;
+  //   console.log(categoryName, dishes);
+  const dispatch = useDispatch();
+  const submitDish = (name) => {
+    dispatch(addDish(name));
+    setDishDescription('');
+    setDishTitle('');
+  };
+  const menu = useSelector((state) => state.maker_menu.menu);
 
-    const EditDeleteIcon = (props) => {
-      return (
-        <View style={{flexDirection: 'row'}}>
-          <Icon {...props} name="edit" pack="eva" />
-          <Icon {...props} name="trash-2" pack="eva" />
-        </View>
-      );
-    };
+  const [dishModal, setDishModal] = useState(false);
+  const [catMenu, setCatMenu] = useState(false);
+  const [menuIndex, setMenuIndex] = useState();
+  const [dishTitle, setDishTitle] = useState('');
+  const [dishDescription, setDishDescription] = useState('');
 
-    const AddIcon = (props) => {
-      return (
-        <Icon
-          style={{
-            height: 30,
-            width: 30,
-            tintColor: '#FEA12E',
-            margin: 10,
-          }}
-          name="plus"
-          pack="eva"
-        />
-      );
-    };
-
-    const Thumbnail = (props) => {
-      return (
-        <Avatar
-          style={styles.avatar}
-          shape="square"
-          source={require('../../../../assets/images/halwa.jpg')}
-        />
-      );
-    };
-
-    const moreVerticalIcon = () => {
-      return (
-        <Icon
-          style={{
-            height: 28,
-            width: 28,
-            tintColor: '#808080',
-            margin: 10,
-            // backgroundColor: 'red',
-          }}
-          name="more-vertical"
-          pack="eva"
-          onPress={() => this.props.changeCategoryMenu(true)}
-        />
-      );
-    };
-
-    const renderItem = ({item, index}) => (
-      <ListItem
-        accessoryLeft={Thumbnail}
-        accessoryRight={EditDeleteIcon}
-        title={item.name}
-        description={item.description}
-      />
-    );
-
-    const backDropPress = () => {
-      this.props.changeCategoryMenu(false);
-      this.props.changeDishModal(false);
-    };
-
-    const handleSubmitDish = () => {
-      this.props.addCategory({
-        title: this.props.newDishTitle,
-        description: this.props.newDishDescription,
-      });
-      this.props.changeDishModal(false);
-    };
-
-    const overFlowMenu = (props) => {
-      return (
+  console.log('Component Rendered');
+  const BackButton = () => <BackIcon navigation={navigation} />;
+  const EditMenuButton = () => {
+    return (
+      <TouchableOpacity onPress={() => setCatMenu(true)}>
         <OverflowMenu
-          anchor={moreVerticalIcon}
-          visible={this.props.CategoryMenu}
-          selectedIndex={index}
-          onSelect={onItemSelect}
-          onBackdropPress={backDropPress}>
+          anchor={MoreVerticalIcon}
+          visible={catMenu}
+          selectedIndex={menuIndex}
+          onSelect={setMenuIndex}
+          onBackdropPress={() => setCatMenu(false)}>
           <MenuItem
             title={(TextProps) => {
               return (
@@ -151,31 +94,50 @@ class CategoryDetails extends Component {
             }}
           />
         </OverflowMenu>
-      );
-    };
+      </TouchableOpacity>
+    );
+  };
 
-    const backIcon = (props) => {
-      return (
-        <Icon
-          style={{
-            height: 30,
-            width: 30,
-            tintColor: '#808080',
-            // backgroundColor: 'blue',
-          }}
-          onPress={() => this.props.navigation.goBack()}
-          name="arrow-ios-back"
-          pack="eva"
-        />
-      );
-    };
+  return (
+    <Layout style={styles.container}>
+      <TopNavigation
+        style={{
+          maxHeight: '10%',
+          maxWidth: SLIDER_WIDTH,
+        }}
+        title={() => {
+          return (
+            <Text category="h5" status="primary">
+              {categoryName}
+            </Text>
+          );
+        }}
+        accessoryRight={EditMenuButton}
+        accessoryLeft={BackButton}
+        alignment="start"
+      />
 
-    // const handleAddDishButton = () => {
-    //   this.props.changeDishModal(true);
-    // };
+      <Divider />
 
-    const renderAddButton = () => {
-      return (
+      <Layout>
+        {dishes ? (
+          <List
+            style={styles.listcontainer}
+            data={dishes}
+            ItemSeparatorComponent={Divider}
+            renderItem={renderListItem}
+          />
+        ) : (
+          <View>
+            <Text
+              category="s1"
+              style={{alignSelf: 'center', margin: 10, fontSize: 20}}>
+              No Dishes Added
+            </Text>
+          </View>
+        )}
+      </Layout>
+      <TouchableOpacity style={styles.addDishButton}>
         <Button
           style={{
             width: '10%',
@@ -187,155 +149,72 @@ class CategoryDetails extends Component {
           appearance="filled"
           status="control"
           accessoryLeft={AddIcon}
-          onPress={() => this.props.changeDishModal(true)}
-        />
-      );
-    };
-
-    return (
-      <Layout style={styles.container}>
-        <TopNavigation
-          style={{
-            maxHeight: '10%',
-            maxWidth: SLIDER_WIDTH,
+          onPress={() => {
+            // console.log('Add Button Pressed W/o Icon');
+            setDishModal(true);
           }}
-          title={(TextProps) => {
-            return (
-              <Text category="h5" status="primary">
-                {this.props.route.params.categoryName}
-              </Text>
-            );
-          }}
-          accessoryRight={overFlowMenu}
-          accessoryLeft={backIcon}
-          alignment="start"
         />
-
-        <Divider />
-
-        <Modal
-          visible={this.props.DishModal}
-          // visible={true}
-          backdropStyle={styles.backdrop}
-          onBackdropPress={() => this.props.changeDishModal(false)}>
-          <Card disabled={true} status="warning">
-            <View
+      </TouchableOpacity>
+      <Modal
+        visible={dishModal}
+        // visible={true}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={() => setDishModal(false)}>
+        <Card disabled={true} status="warning">
+          <View
+            style={{
+              // backgroundColor: 'blue',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              width: '15%',
+              alignSelf: 'flex-end',
+              position: 'absolute',
+              marginRight: 0,
+            }}>
+            <CloseIcon setModal={setDishModal} />
+          </View>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-around',
+              height: ITEM_HEIGHT,
+              width: ITEM_WIDTH,
+            }}>
+            <Text
               style={{
-                // backgroundColor: 'blue',
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                width: '15%',
-                alignSelf: 'flex-end',
-                position: 'absolute',
-                marginRight: 0,
+                fontSize: 20,
+                alignSelf: 'center',
+                color: 'grey',
+                fontWeight: 'bold',
               }}>
-              <Icon
-                style={{
-                  height: 25,
-                  width: 25,
-                  tintColor: '#808080',
-                  margin: 10,
-                  marginRight: 20,
-                }}
-                name="close"
-                pack="eva"
-                onPress={() => this.props.changeDishModal(false)}
-              />
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-around',
-                height: ITEM_HEIGHT,
-                width: ITEM_WIDTH,
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  alignSelf: 'center',
-                  color: 'grey',
-                  fontWeight: 'bold',
-                }}>
-                Add New Dish
-              </Text>
-              <Input
-                textStyle={{color: 'grey'}}
-                // caption={(evaProps) => <Text {...evaProps}>Caption</Text>}
-                status="basic"
-                placeholder="Dish Name"
-                value={this.props.newDishTitle}
-                onChangeText={(value) => this.props.dishInput(value)}
-              />
-              <Input
-                multiline={true}
-                textStyle={{color: 'grey'}}
-                // caption={(evaProps) => <Text {...evaProps}>Caption</Text>}
-                status="basic"
-                placeholder="Description"
-                value={this.props.newDishDescription}
-                onChangeText={(value) => this.props.dishInput2(value)}
-              />
-
-              <Button onPress={handleSubmitDish}>ADD</Button>
-            </View>
-          </Card>
-        </Modal>
-
-        <Layout>
-          {this.props.route.params.dishes ? (
-            <List
-              style={styles.listcontainer}
-              data={this.props.route.params.dishes}
-              ItemSeparatorComponent={Divider}
-              renderItem={renderItem}
+              Add New Dish
+            </Text>
+            <Input
+              textStyle={{color: 'grey'}}
+              status="basic"
+              placeholder="Dish Name"
+              value={dishTitle}
+              onChangeText={(value) => {
+                // console.log(value);
+                setDishTitle(value);
+              }}
             />
-          ) : (
-            <View>
-              <Text
-                category="s1"
-                style={{alignSelf: 'center', margin: 10, fontSize: 20}}>
-                No Dishes Added
-              </Text>
-            </View>
-          )}
-        </Layout>
-        <TouchableOpacity style={styles.addDishButton}>
-          <Tooltip
-            anchor={renderAddButton}
-            visible={this.props.Tooltip}
-            placement="left start"
-            onBackdropPress={backDropPress}>
-            Add New Dish
-          </Tooltip>
-        </TouchableOpacity>
-      </Layout>
-    );
-  }
+            <Input
+              multiline={true}
+              textStyle={{color: 'grey'}}
+              status="basic"
+              placeholder="Description"
+              value={dishDescription}
+              onChangeText={(value) => setDishDescription(value)}
+            />
+
+            <Button onPress={submitDish}>ADD</Button>
+          </View>
+        </Card>
+      </Modal>
+    </Layout>
+  );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    menu: state.maker_menu.menu,
-    newDishTitle: state.maker_menu.newDishTitle,
-    newDishDescription: state.maker_menu.newDishDescription,
-    DishModal: state.maker_menu.DishModal,
-    Tooltip: state.maker_menu.Tooltip,
-    CategoryMenu: state.maker_menu.CategoryMenu,
-    // categoryName: this.props.route.params.categoryName,
-    // dishes: this.props.route.params.dishes,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addDish: (name) => dispatch(addDish(name)),
-    dishInput: (input) => dispatch(dishInput(input)),
-    dishInput2: (input) => dispatch(dishInput2(input)),
-    changeCategoryMenu: (item) => dispatch(toggleCategoryMenu(item)),
-    changeDishModal: (item) => dispatch(toggleDishModal(item)),
-  };
-  // deleteItem: id => dispatch(ACTIONS.deleteItem(id))
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -363,8 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 10,
-    backgroundColor: 'red',
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryDetails);
+export default CategoryDetails;

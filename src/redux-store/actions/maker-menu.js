@@ -7,14 +7,9 @@ import {
   ADD_CATEGORY,
   DELETE_CATEGORY,
   EDIT_CATEGORY,
-  TOGGLE_CATEGORY_MODAL,
-  TOGGLE_DISH_MODAL,
-  TOGGLE_CATEGORY_MENU,
   CHECK_DISH,
-  CATEGORY_INPUT,
-  DISH_INPUT,
-  DISH_INPUT2,
 } from './actionTypes';
+import React from 'react';
 
 export const selectDish = (id) => {
   return {
@@ -60,49 +55,10 @@ export const editCategory = () => {
   };
 };
 
-export const toggleCategoryModal = (boolval) => {
-  return {
-    type: TOGGLE_CATEGORY_MODAL,
-    payload: boolval,
-  };
-};
-
-export const toggleCategoryMenu = (boolval) => {
-  return {
-    type: TOGGLE_CATEGORY_MENU,
-    payload: boolval,
-  };
-};
-
-export const toggleDishModal = (boolval) => {
-  return {
-    type: TOGGLE_DISH_MODAL,
-    payload: boolval,
-  };
-};
-
 export const checkDish = (id) => {
   return {
     type: CHECK_DISH,
     payload: id,
-  };
-};
-export const categoryInput = (text) => {
-  return {
-    type: CATEGORY_INPUT,
-    payload: text,
-  };
-};
-export const dishInput = (text) => {
-  return {
-    type: DISH_INPUT,
-    payload: text,
-  };
-};
-export const dishInput2 = (text) => {
-  return {
-    type: DISH_INPUT2,
-    payload: text,
   };
 };
 
