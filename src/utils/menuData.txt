@@ -1,4 +1,4 @@
-const MENU = [
+[
     {
       title: 'Starters',
       dishes: [

@@ -16,7 +16,7 @@ const FacebookIcon = (props) => <Icon {...props} name="facebook" pack="eva" />;
 // packs: eva,material,feather
 // npx react-native link [Imp Command to link new 3rd party packages]
 // npm start -- --reset-cache
-//******************** */
+//*********************/
 // watchman watch-del-all &&
 // rm -rf $TMPDIR/react-native-packager-cache-* &&
 // rm -rf $TMPDIR/metro-bundler-cache-* &&
@@ -24,7 +24,7 @@ const FacebookIcon = (props) => <Icon {...props} name="facebook" pack="eva" />;
 // && npm cache clean --force &&
 // npm install &&
 // npm start -- --reset-cache
-//******************** */
+//*********************/
 
 export default Index = () => (
   <Provider store={store}>

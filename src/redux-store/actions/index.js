@@ -9,3 +9,5 @@ export {
   editCategory,
   checkDish,
 } from './maker-menu';
+
+export {logUser} from './main-app';

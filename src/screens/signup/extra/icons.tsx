@@ -37,6 +37,9 @@ export const TwitterIcon = (style: ImageStyle): IconElement => (
 export const AgeIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="calendar" pack="eva" />
 );
+export const AboutIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="clipboard" pack="eva" />
+);
 
 export const AddressIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="pin" pack="eva" />
@@ -44,4 +47,8 @@ export const AddressIcon = (style: ImageStyle): IconElement => (
 
 export const StoreIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="store" pack="material" />
+);
+
+export const PhoneIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name="call" pack="material" />
 );

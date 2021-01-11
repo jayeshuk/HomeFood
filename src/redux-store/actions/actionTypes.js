@@ -7,3 +7,5 @@ export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 export const CHECK_DISH = 'CHECK_DISH';
+
+export const LOG_USER = 'LOG_USER';

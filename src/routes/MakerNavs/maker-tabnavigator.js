@@ -52,11 +52,11 @@ export const MakerTabNavigator = () => {
 
   return (
     <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-      {/* <Screen
+      <Screen
         name="InboxNavigator"
         options={{title: 'Order Khamang'}}
         component={InboxNavigator}
-      /> */}
+      />
       <Screen
         name="MenuNavigator"
         options={{title: 'Orders Received'}}

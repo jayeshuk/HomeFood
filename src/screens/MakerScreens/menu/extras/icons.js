@@ -50,15 +50,6 @@ export const CloseIcon = (props) => {
   );
 };
 
-export const EditDeleteIcon = (props) => {
-  return (
-    <View style={{flexDirection: 'row'}}>
-      <Icon {...props} name="edit" pack="eva" />
-      <Icon {...props} name="trash-2" pack="eva" />
-    </View>
-  );
-};
-
 export const AddIcon = (props) => {
   return (
     <Icon
