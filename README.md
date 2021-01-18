@@ -99,6 +99,12 @@ Clone down this repository. You will need `node` and `npm` installed globally on
     
     App Launched in your Android/iOS Device
     
+5. Login Details (Demo): 
+    
+    Role : Both User or Maker can be selected
+    Email Id : adi@jonas.io
+    Password : test1234
+    
 ## Run tests
 Unittests: `npm run mocha`
 
