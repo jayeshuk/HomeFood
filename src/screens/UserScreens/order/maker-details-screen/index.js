@@ -107,6 +107,7 @@ export default () => {
         showsHorizontalScrollIndicator={false}
         data={product.images}
         renderItem={renderImageItem}
+        
       />
       
     </ScrollView>

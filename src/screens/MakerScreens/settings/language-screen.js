@@ -4,6 +4,7 @@ import {
   Divider,
   Icon,
   Layout,
+  Radio,
   Text,
   TopNavigation,
   TopNavigationAction,
@@ -30,10 +31,8 @@ class LanguageScreen extends Component {
           alignment="start"
         />
         <Divider />
-        <Layout
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text category="h5">Look at your Languages</Text>
-        </Layout>
+        <Radio><Text category="h3">English</Text></Radio><Divider />
+        <Radio><Text category="h3">Marathi</Text></Radio><Divider />
       </Layout>
     );
   }

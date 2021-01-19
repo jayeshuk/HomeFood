@@ -4,6 +4,7 @@ import {
   Divider,
   Icon,
   Layout,
+  Input,
   Text,
   TopNavigation,
   TopNavigationAction,
@@ -30,10 +31,8 @@ class SupportScreen extends Component {
           alignment="start"
         />
         <Divider />
-        <Layout
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text category="h5">Get Support</Text>
-        </Layout>
+        <Text category="h4">Description</Text>
+        <Input multiline={true} textStyle={{ minHeight: 64 }} size='large' placeholder="Describe your problem" />
       </Layout>
     );
   }
