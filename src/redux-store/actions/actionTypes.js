@@ -6,10 +6,6 @@ export const EDIT_DISH = 'EDIT_DISH';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';
-export const TOGGLE_DISH_MODAL = 'TOGGLE_DISH_MODAL';
-export const TOGGLE_CATEGORY_MODAL = 'TOGGLE_CATEGORY_MODAL';
-export const TOGGLE_CATEGORY_MENU = 'TOGGLE_CATEGORY_MENU';
 export const CHECK_DISH = 'CHECK_DISH';
-export const CATEGORY_INPUT = 'CATEGORY_INPUT';
-export const DISH_INPUT = 'DISH_INPUT';
-export const DISH_INPUT2 = 'DISH_INPUT2';
+
+export const LOG_USER = 'LOG_USER';
