@@ -19,7 +19,7 @@ function SearchIcon(props) {
   return <Icon {...props} name="search-outline" pack="eva" />;
 }
 
-function Home() {
+const Home = () => {
   const SLIDER_WIDTH = Dimensions.get('window').width;
   const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
   const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
@@ -107,7 +107,7 @@ function Home() {
       </Layout>
     </Layout>
   );
-}
+};
 
 export default Home;
 
