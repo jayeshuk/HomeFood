@@ -1,59 +1,56 @@
 const Dish = require('../models/dishModel');
 const User = require('../models/userModel');
+const Order = require('../models/orderModel');
 const Menu = require('../models/menuModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/appError');
+const Razorpay = require('razorpay');
 
-exports.getAllDishes = catchAsync(async (req, res, next) => {
-  const dishes = await Dish.find();
+var instance = new Razorpay({
+  key_id: 'rzp_test_oyCN745HPQkWRI',
+  key_secret: '8fVl1zB51NgwBRDuQXQWdIye',
+});
+
+exports.getOrders = catchAsync(async (req, res, next) => {
+  const orders = await Order.find();
+  // console.log('GET ORDERS BODY:', orders);
   res.status(200).json({
     status: 'success',
-    results: dishes.length,
+    results: orders.length,
     data: {
-      dishes,
+      orders,
     },
   });
 });
 
-exports.getSingleDish = catchAsync(async (req, res, next) => {
-  dish = await Dish.findById(req.params.id);
-  console.log('DD', dish);
+exports.getOrder = catchAsync(async (req, res, next) => {
   console.log(req.params.id);
-  if (!dish) {
-    return next(new AppError('No dish found with that Id', 404));
+  const order = await Order.findById(req.params.id);
+  // console.log('DD', order);
+  // console.log(req.params.id);
+  if (!order) {
+    return next(new AppError('No order found with that Id', 404));
   }
   res.status(200).json({
     status: 'success',
     data: {
-      dish,
+      order,
     },
   });
 });
 
-exports.createDish = catchAsync(async (req, res, next) => {
-  console.log('Creating Dish');
-  const newDish = await Dish.create(req.body);
-  console.log(newDish);
-  const menu = await Menu.find({maker_id: req.body.maker_id});
-  console.log('Menu C:', menu[0].categories);
-  category_index = menu[0].categories.findIndex(function (category) {
-    return category.title === req.body.category_name;
-  });
-  console.log(category_index);
-  menu[0].categories[category_index].dishes.push(newDish);
-  console.log('Dish Arr:', menu[0]._id);
-  const update_menu = await Menu.findByIdAndUpdate(menu[0]._id, menu[0], {
-    new: true,
-    runValidators: true,
-  });
-  console.log(update_menu);
+exports.createOrder = catchAsync(async (req, res, next) => {
+  console.log('Creating Order');
+  const newOrder = await Order.create(req.body);
+  console.log('Create in Controller:', newOrder);
+
   res.status(201).json({
     status: 'success',
-    data: {},
+    data: newOrder,
   });
 });
 
-exports.updateDish = catchAsync(async (req, res, next) => {
+exports.updateOrder = catchAsync(async (req, res, next) => {
   console.log('Updating Dish', req.body);
   const dish = await Dish.findByIdAndUpdate(req.params.id, req.body, {
     new: true, // return modified doc, not original
@@ -99,7 +96,7 @@ exports.updateDish = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteDish = catchAsync(async (req, res, next) => {
+exports.deleteOrder = catchAsync(async (req, res, next) => {
   console.log('Updating Dish');
 
   const menu = await Menu.findById(req.body.menu_id);

@@ -25,6 +25,9 @@ const FacebookIcon = (props) => <Icon {...props} name="facebook" pack="eva" />;
 // npm install &&
 // npm start -- --reset-cache
 //*********************/
+//Sync the ./android folder changes
+//Run : "gradlew" and "gradlew --refresh-dependencies"
+//*********************/
 
 export default Index = () => (
   <Provider store={store}>

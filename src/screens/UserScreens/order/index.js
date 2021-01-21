@@ -105,7 +105,7 @@ function OrderScreen(props) {
   const renderRightActions = () => (
     <React.Fragment>
       <TopNavigationAction icon={SearchIcon} />
-      <TopNavigationAction icon={CartIcon} onPress={handleCartPress} />
+      {/* <TopNavigationAction icon={CartIcon} onPress={handleCartPress} /> */}
     </React.Fragment>
   );
 

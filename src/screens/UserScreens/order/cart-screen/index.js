@@ -1,7 +1,8 @@
-import React from 'react';
-import {ListRenderItemInfo} from 'react-native';
+import React, {useEffect} from 'react';
+import {ListRenderItemInfo, View, ScrollView} from 'react-native';
 import {
   Button,
+  ButtonGroup,
   Layout,
   List,
   StyleService,
@@ -10,57 +11,97 @@ import {
   TopNavigation,
   TopNavigationAction,
   Icon,
+  ListItem,
+  Divider,
 } from '@ui-kitten/components';
-import {CartItem} from './extra/cart-item.component';
 import {Product} from './extra/data';
+import axios from 'react-native-axios';
 
 const initialProducts = [Product.pinkChair(), Product.blackLamp()];
 
-export default ({navigation}) => {
+export default ({route, navigation}) => {
+  const order = route.params.order;
+  const makerid = route.params.makerid;
   const styles = useStyleSheet(themedStyle);
+  const [reboot, setReboot] = React.useState(false);
   const [products, setProducts] = React.useState(initialProducts);
+  const [orderId, setOrderId] = React.useState();
+  const [orderDetails, setOrderDetails] = React.useState();
+  const [total, setTotal] = React.useState();
 
   const totalCost = () => {
-    return products.reduce((acc, product) => acc + product.totalPrice, 0);
+    return order.reduce((acc, product) => acc + product.price * product.qty, 0);
   };
 
-  const onItemRemove = (product, index) => {
-    products.splice(index, 1);
-    setProducts([...products]);
-  };
-
-  const onItemChange = (product, index) => {
-    products[index] = product;
-    setProducts([...products]);
-  };
-
-  const renderFooter = () => (
-    <Layout style={styles.footer}>
-      <Text category="h5">Total Cost:</Text>
-      <Text category="h5">{`Rs.${totalCost()}`}</Text>
-    </Layout>
-  );
-
-  const renderProductItem = (info) => (
-    <CartItem
-      style={styles.item}
-      index={info.index}
-      product={info.item}
-      onProductChange={onItemChange}
-      onRemove={onItemRemove}
-    />
-  );
-
-  function SearchIcon(props) {
+  const renderDishItem = (info) => {
+    let i = info.index;
+    // console.log('INFO:', info);
     return (
-      <Icon
-        {...props}
-        style={{color: 'black', fontSize: 25}}
-        name="search"
-        pack="material"
-      />
+      <Layout
+        style={{
+          flexDirection: 'row',
+          padding: 15,
+          alignItems: 'flex-end',
+          alignContent: 'space-between',
+          justifyContent: 'space-between',
+        }}>
+        <Text
+          style={{
+            flex: 1,
+            fontSize: 20,
+            color: 'black',
+            alignSelf: 'flex-start',
+          }}>
+          {info.item.name}
+        </Text>
+        <ButtonGroup
+          size="small"
+          style={{
+            alignSelf: 'center',
+            textAlign: 'right',
+            marginHorizontal: 15,
+            borderRadius: 10,
+          }}
+          appearance="outline">
+          <Button
+            onPress={() => {
+              if (info.item.qty > 0) info.item.qty = info.item.qty - 1;
+              setReboot(!reboot);
+              console.log('ORDER', order);
+            }}
+            accessoryLeft={(props) => (
+              <Icon {...props} name="minus" pack="eva" />
+            )}
+          />
+          <Button onPress={() => {}}>
+            {(props) => (
+              <Text style={[props.style, {fontSize: 16}]}>{info.item.qty}</Text>
+            )}
+          </Button>
+          <Button
+            onPress={() => {
+              info.item.qty = info.item.qty + 1;
+              setReboot(!reboot);
+              console.log('ORDER', order);
+            }}
+            accessoryLeft={(props) => (
+              <Icon {...props} name="plus" pack="eva" />
+            )}
+          />
+        </ButtonGroup>
+        <Text
+          category="h5"
+          style={{
+            flex: 1,
+            color: 'black',
+            alignSelf: 'center',
+            textAlign: 'right',
+          }}>
+          {info.item.qty} X {info.item.price}
+        </Text>
+      </Layout>
     );
-  }
+  };
   function BackIcon(props) {
     return (
       <Icon
@@ -71,8 +112,6 @@ export default ({navigation}) => {
       />
     );
   }
-
-  const renderRightActions = () => <TopNavigationAction icon={SearchIcon} />;
   const renderLeftActions = () => (
     <TopNavigationAction
       icon={BackIcon}
@@ -82,8 +121,59 @@ export default ({navigation}) => {
     />
   );
 
+  const amount = totalCost();
+
+  var create_order_data = JSON.stringify({
+    amount: amount * 100,
+    currency: 'INR',
+    receipt: 'Receipt no. 2',
+    payment_capture: 1,
+    notes: {
+      notes_key_1: 'Tea, Earl Grey, Hot',
+      notes_key_2: 'Tea, Earl Grey… decaf.',
+    },
+  });
+
+  var create_order_config = {
+    method: 'post',
+    url: 'https://api.razorpay.com/v1/orders',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization:
+        'Basic cnpwX3Rlc3Rfb3lDTjc0NUhQUWtXUkk6OGZWbDF6QjUxTmd3QlJEdVFYUVdkSXll',
+    },
+    data: create_order_data,
+  };
+
+  const HandleOrderPlace = async () => {
+    await axios(create_order_config)
+      .then(function (response) {
+        console.log('ORDER RECEIVED');
+        console.log(JSON.stringify(response.data));
+        setOrderId(response.id);
+        setOrderDetails(response.data);
+      })
+      .catch(function (error) {
+        console.log('ERROR', error.message);
+      });
+  };
+
+  const GoToPay = () => {
+    navigation &&
+      navigation.navigate('Pay', {
+        order: order,
+        id: orderId,
+        order_details: orderDetails,
+        makerid: makerid,
+      });
+  };
+
+  useEffect(() => {
+    HandleOrderPlace();
+  }, [amount]);
+
   return (
-    <Layout style={styles.container} level="2">
+    <Layout style={styles.container}>
       <TopNavigation
         title={(TextProps) => {
           return (
@@ -93,15 +183,40 @@ export default ({navigation}) => {
           );
         }}
         accessoryLeft={renderLeftActions}
-        accessoryRight={renderRightActions}
         alignment="start"
       />
-      <List
-        data={products}
-        renderItem={renderProductItem}
-        ListFooterComponent={renderFooter}
+      <Layout
+        style={{
+          flexDirection: 'row',
+          padding: 15,
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+        }}>
+        {['Item', 'Quantity', 'Cost'].map((item, index) => (
+          <Text
+            key={index}
+            style={{
+              fontSize: 22,
+              color: 'black',
+              fontWeight: 'bold',
+            }}>
+            {item}
+          </Text>
+        ))}
+      </Layout>
+      <Divider
+        style={{backgroundColor: 'grey', width: '90%', alignSelf: 'center'}}
       />
-      <Button style={styles.checkoutButton} size="giant">
+      <List data={order} renderItem={renderDishItem} />
+      <Layout style={styles.footer}>
+        <Text category="h5" style={{color: 'grey'}}>
+          Total Amount:
+        </Text>
+        <Text
+          category="h5"
+          style={{color: 'grey'}}>{`Rs. ${totalCost()}`}</Text>
+      </Layout>
+      <Button onPress={GoToPay} style={styles.checkoutButton} size="large">
         CHECKOUT
       </Button>
     </Layout>
@@ -120,7 +235,7 @@ const themedStyle = StyleService.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 0.5,
-    paddingVertical: 28,
+    paddingVertical: 16,
     paddingHorizontal: 16,
   },
   checkoutButton: {

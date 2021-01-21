@@ -94,9 +94,11 @@ function Menu({navigation}) {
         // let json = res.json();
         // console.log('Menu Res.Data:- ', JSON.stringify(res.data.data.menu));
         if (res.data.data) {
-          setLoadedMenuId(res.data.data.menu._id);
-          setCategories(res.data.data.menu.categories);
-        } // console.log('Saved Value:', categories);
+          setLoadedMenuId(res.data.data.id);
+          console.log('MENU_ID:', loadedMenuId);
+          setCategories(res.data.data.menu);
+          // console.log('LOADED:', res.data.data.menu);
+        }
       })
       .catch(function (error) {
         console.log(error.message);
@@ -112,6 +114,7 @@ function Menu({navigation}) {
         // console.log(res);
         // console.log('Menu Res.Data:- ', JSON.stringify(res.data.data.menu));
         setCategories(res.data.data.menu.categories);
+        console.log('UPDATED:', res.data.data.menu);
         // console.log('Saved Value:', categories);
       })
       .catch(function (error) {

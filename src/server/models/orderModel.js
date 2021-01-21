@@ -4,17 +4,29 @@ const orderSchema = new mongoose.Schema({
   dishes: {
     type: Array,
   },
-  amount_payable: {
+  amount: {
     type: Number,
   },
   del_address: {
     type: String,
-    required: [true, 'An order must have an address.'],
+    // required: [true, 'An order must have an address.'],
   },
-  payment_method: {
+  payid: {
     type: String,
-    required: [true, 'An order must have a payment method.'],
   },
+  userid: {
+    type: mongoose.ObjectId,
+  },
+  makerid: {
+    type: mongoose.ObjectId,
+  },
+  prepared: {
+    type: Boolean,
+  },
+  // payment_method: {
+  //   type: String,
+  //   required: [true, 'An order must have a payment method.'],
+  // },
 });
 
 const Order = mongoose.model('Order', orderSchema);

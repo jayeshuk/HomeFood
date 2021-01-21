@@ -13,10 +13,14 @@
     "text-heading-3-font-weight": "800",
     "text-heading-3-font-family": "SansitaSwashed-Light",
 
+    "text-heading-4-font-size": 28,
+    "text-heading-4-font-weight": "800",
+    "text-heading-4-font-family": "OpenSans-SemiBold",
+
     "text-subtitle-1-font-size": 15,
     "text-subtitle-1-font-weight": "600",
     "text-subtitle-1-font-family": "OpenSans-SemiBold",
-    
+
     "text-subtitle-2-font-size": 16,
     "text-subtitle-2-font-weight": "400",
     "text-subtitle-2-font-family": "OpenSans-Regular",

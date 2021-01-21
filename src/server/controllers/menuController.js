@@ -17,11 +17,12 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
 exports.getCategory = catchAsync(async (req, res, next) => {
   console.log('Getting a Menu');
   const menu = await Menu.find({maker_id: req.params.id});
-  //   console.log('MENU from Controller:', menu);
+  // console.log('MENU from GET Controller:', menu);
   res.status(200).json({
     status: 'success',
     data: {
-      menu: menu[0],
+      menu: menu[0].categories,
+      id: menu[0]._id,
     },
   });
 });

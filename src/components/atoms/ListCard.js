@@ -85,9 +85,13 @@ export default function ListCard(props) {
           );
         })
       ) : (
-        <View>
-          <Text>No Makers Available</Text>
-        </View>
+        // <View>
+        <Text
+          category="s1"
+          style={{alignSelf: 'center', margin: 10, fontSize: 20}}>
+          No Makers Available
+        </Text>
+        // </View>
       )}
     </View>
   );
