@@ -58,7 +58,7 @@ function CategoryDetails({route, navigation}) {
   const DeleteCategory = async () => {
     await axios(del_cat_config)
       .then(function (response) {
-        console.log('Response Data:', JSON.stringify(response.data));
+        // console.log('Response Data:', JSON.stringify(response.data));
         onGoBack();
         navigation.goBack();
       })
@@ -70,10 +70,9 @@ function CategoryDetails({route, navigation}) {
     await axios(load_config)
       .then(function (res) {
         if (res.data.data) {
-          setCats(res.data.data.menu.categories);
+          setCats(res.data.data.menu);
           setDishes(
-            res.data.data.menu.categories.find((o) => o.title === categoryName)
-              .dishes,
+            res.data.data.menu.find((o) => o.title === categoryName).dishes,
           );
         } // console.log('Saved Value:', categories);
       })
@@ -155,13 +154,26 @@ function CategoryDetails({route, navigation}) {
   };
 
   const renderListItem = ({item, index}) => {
-    console.log(item);
+    // console.log(item);
     return (
       <ListItem
         accessoryLeft={Thumbnail}
         accessoryRight={(props) => EditDeleteIcon(props, item._id)}
-        title={item.name}
-        description={item.cuisine_type}
+        title={() => (
+          <Text category="h5" style={{color: 'black', marginLeft: 8}}>
+            {item.name}
+          </Text>
+        )}
+        description={() => (
+          <Text
+            category="s2"
+            style={{
+              color: item.cuisine_type === 'Veg' ? 'green' : 'red',
+              marginLeft: 8,
+            }}>
+            {item.cuisine_type}
+          </Text>
+        )}
       />
     );
   };

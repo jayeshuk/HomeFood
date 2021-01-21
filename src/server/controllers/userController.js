@@ -15,7 +15,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.getMakers = catchAsync(async (req, res, next) => {
   const users = await User.find({role: 'maker'});
-  console.log(users);
+  // console.log(users);
   res.status(200).json({
     status: 'success',
     results: users.length,
@@ -25,24 +25,42 @@ exports.getMakers = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This Route has not yet implemented.',
+exports.getUser = catchAsync(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  res.status(200).json({
+    status: 'success',
+    user: user,
   });
-};
+});
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
     message: 'This Route has not yet implemented.',
   });
 };
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This Route has not yet implemented.',
+exports.updateUser = catchAsync(async (req, res, next) => {
+  // console.log('REQQQ:', req.body);
+  const user = await User.findById(req.params.id);
+  if (req.body.orderId != null) {
+    user.orders.push(req.body.orderId);
+  }
+  const update = await User.findByIdAndUpdate(req.params.id, user);
+
+  const maker_user = await User.findById(req.body.makerId);
+  if (req.body.orderId != null) {
+    user.orders.push(req.body.orderId);
+  }
+  const maker_update = await User.findByIdAndUpdate(req.body.makerId, user);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: update,
+      maker: maker_update,
+    },
   });
-};
+});
+
 exports.deleteUser = (req, res) => {
   res.status(500).json({
     status: 'error',

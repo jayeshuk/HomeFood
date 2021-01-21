@@ -57,7 +57,7 @@ export class ProductPrice {
   }
 
   static tenDollarsPerNight(): ProductPrice {
-    return new ProductPrice(10, '$', 'night');
+    return new ProductPrice(80, 'Rs.', 'person');
   }
 }
 
@@ -76,7 +76,7 @@ export class ProductOption {
   // }
 
   static parkingOption(): ProductOption {
-    return new ProductOption('car', 'TASTY');
+    return new ProductOption('car', 'NON-VEGITARIAN');
   }
 }
 

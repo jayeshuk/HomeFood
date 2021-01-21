@@ -23,6 +23,8 @@ function dishMod(props) {
   const [price, setPrice] = useState(0);
   const [available, setAvailable] = useState();
 
+  console.log('MENU', menuId);
+
   var create_dish_data = JSON.stringify({
     name: dishTitle,
     cuisine_type: dishCuisineType,
@@ -33,7 +35,7 @@ function dishMod(props) {
   });
 
   var update_dish_data = JSON.stringify({
-    available: false,
+    // available: false,
     menu_id: menuId,
     category_name: categoryName,
     name: dishTitle,
@@ -81,13 +83,13 @@ function dishMod(props) {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         ReRender();
-        setDishCuisineType('');
-        setDishTitle('');
-        setPrice(0);
+        // setDishCuisineType('');
+        // setDishTitle('');
+        // setPrice(0);
       })
       .catch(function (error) {
         console.log(error);
-        window.alert('Something went wrong. Enter valid details');
+        window.alert('Something went wrong in updating');
       });
   };
 
@@ -102,7 +104,7 @@ function dishMod(props) {
       })
       .catch(function (error) {
         console.log(error);
-        window.alert('Something went wrong. Enter valid details');
+        window.alert('Something went wrong in creating');
       });
   };
 

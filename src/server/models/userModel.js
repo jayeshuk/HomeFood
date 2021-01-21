@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
     // required: [true, 'A user must have an address'],
   },
   orders: {
-    type: Array,
+    type: [mongoose.ObjectId],
     default: [],
   },
 });

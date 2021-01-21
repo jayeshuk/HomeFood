@@ -1,5 +1,4 @@
-import React from 'react';
-// import { ListItem, Text } from '@ui-kitten/components';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -7,7 +6,12 @@ import {
   ListRenderItemInfo,
   ScrollView,
   View,
+  FlatList,
+  SafeAreaView,
+  RefreshControl,
+  Dimensions,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import {
   Button,
   Card,
@@ -20,16 +24,40 @@ import {
   useStyleSheet,
   TopNavigation,
   TopNavigationAction,
+  Divider,
+  Layout,
 } from '@ui-kitten/components';
+import axios from 'react-native-axios';
 import {ImageOverlay} from './extra/image-overlay.component';
 import {Product, ProductOption} from './extra/data';
+import VirtualizedView from './MenuList';
 
 const product = Product.centralParkApartment();
 
 export default ({route, navigation}) => {
-  console.log(route.params.maker_data);
+  // console.log(route.params.maker_data);
   var maker_data = route.params.maker_data;
+  var maker_id = maker_data._id;
   const styles = useStyleSheet(themedStyles);
+
+  const [bottomModal, setBottomModal] = React.useState(false);
+  const [cart, setCart] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    LoadMenu();
+    setTimeout(() => setRefreshing(false), 2000);
+  }, []);
+  const deviceWidth = Dimensions.get('window').width;
+  const deviceHeight =
+    Platform.OS === 'ios'
+      ? Dimensions.get('window').height
+      : require('react-native-extra-dimensions-android').get(
+          'REAL_WINDOW_HEIGHT',
+        );
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [menudata, setMenuData] = useState();
   const onBookButtonPress = () => {};
   const renderImageItem = (info) => (
     <Image style={styles.imageItem} source={info.item} />
@@ -45,7 +73,6 @@ export default ({route, navigation}) => {
       {option.title}
     </Button>
   );
-
   const renderDetailItem = (detail, index) => (
     <Button
       key={index}
@@ -55,10 +82,9 @@ export default ({route, navigation}) => {
       {detail}
     </Button>
   );
-
   const renderBookingFooter = () => (
     <View style={{marginLeft: '8%'}}>
-      <Text category="s1">Facilities</Text>
+      <Text category="s1"></Text>
       <View style={styles.detailsList}>
         {product.details.map(renderDetailItem)}
       </View>
@@ -68,95 +94,269 @@ export default ({route, navigation}) => {
     </View>
   );
 
-  function BackIcon(props) {
-    return (
-      <Icon
-        {...props}
-        name="arrow-back"
-        pack="material"
-        style={{color: 'grey', fontSize: 25}}
-      />
-    );
-  }
-  function SearchIcon(props) {
-    return (
-      <Icon
-        {...props}
-        style={{color: 'black', fontSize: 25}}
-        name="search"
-        pack="material"
-      />
-    );
-  }
+  const EatNowButton = (dishInfo) => {
+    const {id, name, price} = dishInfo;
+    if (!cart.some((dish) => dish.name == name))
+      return (
+        <Button
+          size="small"
+          style={{margin: 5}}
+          onPress={() => {
+            cart.push(dishInfo);
+            // console.log('Update CART', cart);
+            LoadMenu();
+          }}>
+          EAT NOW
+        </Button>
+      );
+    else
+      return (
+        <Button
+          accessoryLeft={(props) => (
+            <Icon {...props} name="checkmark" pack="eva" />
+          )}
+          size="small"
+          status="success"
+          style={{margin: 5}}
+          onPress={() => {
+            setCart(cart.filter((d) => d.name !== name));
+            LoadMenu();
+          }}>
+          ADDED
+        </Button>
+      );
+  };
 
-  const renderRightActions = () => <TopNavigationAction icon={SearchIcon} />;
-  const renderLeftActions = () => (
-    <TopNavigationAction
-      icon={BackIcon}
-      onPress={() => {
-        navigation.goBack();
-      }}
-    />
+  const EatNowButtonDisabled = (props) => {
+    return (
+      <Button
+        accessoryLeft={(props) => <Icon {...props} name="close" pack="eva" />}
+        size="small"
+        style={{margin: 5}}
+        status="danger">
+        NOT AVAILABLE
+      </Button>
+    );
+  };
+  const renderItemIcon = (props) => <Icon {...props} name="hash" pack="eva" />;
+
+  var config = {
+    method: 'get',
+    url: `http://192.168.43.132:3000/api/v1/menus/${maker_id}`,
+    headers: {},
+  };
+
+  const LoadMenu = async () => {
+    let res = await axios(config)
+      .then(function (response) {
+        setMenuData(response.data.data.menu);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    LoadMenu();
+  }, []);
+
+  const HandleGoToCart = () => {
+    cart.forEach((o) => (o.qty = 1));
+    console.log('Order Sent to Cart', cart);
+    navigation &&
+      navigation.navigate('CartScreen', {order: cart, makerid: maker_id});
+  };
+
+  const GoToCartButton = (props) => (
+    <Button
+      onPress={HandleGoToCart}
+      size="medium"
+      status="info"
+      style={{margin: 0}}>
+      GO TO CART
+    </Button>
   );
 
   return (
-    <ScrollView style={styles.container}>
-      {/* <TopNavigation
+    <Layout>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <ImageOverlay style={styles.image} source={product.primaryImage} />
+
+        <Card
+          style={styles.bookingCard}
+          appearance="filled"
+          disabled={true}
+          footer={renderBookingFooter}>
+          <Text style={styles.title} category="h4">
+            {/* {product.title} */}
+            {maker_data.firstName + ' ' + maker_data.lastName}
+          </Text>
+          <Text category="s2">{maker_data.address}</Text>
+          <Text style={styles.rentLabel} appearance="hint" category="h6">
+            Maharashtrian Food
+          </Text>
+          <Text style={styles.priceLabel} category="h6">
+            {product.price.formattedValue}
+            <Text>{product.price.formattedScale}</Text>
+          </Text>
+          {/* <Button style={styles.bookButton} onPress={onBookButtonPress}>
+            Cart Modal
+          </Button> */}
+        </Card>
+
+        <Text style={styles.sectionLabel} category="s1">
+          About
+        </Text>
+        <Text style={styles.description} appearance="hint">
+          {maker_data.aboutme}
+        </Text>
+        <Text style={styles.sectionLabel} category="s1">
+          Photos
+        </Text>
+        <List
+          contentContainerStyle={styles.imagesList}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={product.images}
+          renderItem={renderImageItem}
+        />
+        <Text style={styles.sectionLabel} category="s1">
+          Menu
+        </Text>
+
+        {menudata ? (
+          menudata.map((item, index) => {
+            if (item.dishes.length)
+              return (
+                <View key={index}>
+                  <Text
+                    category="h4"
+                    style={{
+                      marginLeft: 20,
+                      color: '#FEA12E',
+                      fontWeight: '100',
+                    }}>
+                    {item.title}
+                  </Text>
+                  {item.dishes.map((el, i) => {
+                    // console.log('EL', el);
+                    return el.available ? (
+                      <View
+                        key={i}
+                        style={{
+                          // marginLeft: 20,
+                          marginVertical: 5,
+                          // marginRight: 10,
+                        }}>
+                        <ListItem
+                          style={{marginHorizontal: 15}}
+                          title={(TextProps) => (
+                            <Text style={{fontSize: 20, color: 'black'}}>
+                              {el.name}
+                            </Text>
+                          )}
+                          description={(TextProps) => (
+                            <Text category="h6" style={{color: 'grey'}}>
+                              Rs. {el.price}
+                            </Text>
+                          )}
+                          accessoryLeft={renderItemIcon}
+                          accessoryRight={() =>
+                            EatNowButton({
+                              id: el._id,
+                              name: el.name,
+                              price: el.price,
+                            })
+                          }
+                        />
+                      </View>
+                    ) : (
+                      <View
+                        key={i}
+                        style={{
+                          marginLeft: 20,
+                          marginVertical: 5,
+                          marginRight: 10,
+                        }}>
+                        <ListItem
+                          title={(TextProps) => (
+                            <Text category="h5" style={{color: 'grey'}}>
+                              {el.name}
+                            </Text>
+                          )}
+                          description={(TextProps) => (
+                            <Text category="h6" style={{color: 'grey'}}>
+                              Rs. {el.price}
+                            </Text>
+                          )}
+                          accessoryLeft={renderItemIcon}
+                          accessoryRight={EatNowButtonDisabled}
+                        />
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+          })
+        ) : (
+          <Text
+            category="s1"
+            style={{alignSelf: 'center', margin: 10, fontSize: 20}}>
+            No Dishes Available
+          </Text>
+        )}
+      </ScrollView>
+      <Modal
         style={{
-          position: 'absolute',
-          margin: 10,
-          alignItems: 'center',
-          justifyContent: 'center',
-          elevation: 10,
+          justifyContent: 'flex-end',
+          margin: 0,
         }}
-        accessoryLeft={renderLeftActions}
-        accessoryRight={renderRightActions}
-        alignment="start"
-        icon={BackIcon}
-      /> */}
-      <ImageOverlay style={styles.image} source={product.primaryImage} />
-      <Card
-        style={styles.bookingCard}
-        appearance="filled"
-        disabled={true}
-        footer={renderBookingFooter}>
-        <Text style={styles.title} category="h4">
-          {/* {product.title} */}
-          {maker_data.firstName + ' ' + maker_data.lastName}
-        </Text>
-        <Text category="s2">{maker_data.address}</Text>
-        <Text style={styles.rentLabel} appearance="hint" category="p1">
-          Maharashtrian Food
-        </Text>
-        <Text style={styles.priceLabel} category="h6">
-          {product.price.formattedValue}
-          <Text>{product.price.formattedScale}</Text>
-        </Text>
-        <Button style={styles.bookButton} onPress={onBookButtonPress}>
-          Order
-        </Button>
-      </Card>
-      <Text style={styles.sectionLabel} category="s1">
-        About
-      </Text>
-      <Text style={styles.description} appearance="hint">
-        {/* {product.description} */}
-        {maker_data.aboutme}
-      </Text>
-      <Text style={styles.sectionLabel} category="s1">
-        Photos
-      </Text>
-      <List
-        contentContainerStyle={styles.imagesList}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        data={product.images}
-        renderItem={renderImageItem}
-      />
-      <Text style={styles.sectionLabel} category="s1">
-        Menu
-      </Text>
-    </ScrollView>
+        isVisible={cart.length > 0 ? true : false}
+        // deviceWidth={deviceWidth}
+        // deviceHeight={deviceHeight}
+        // onSwipeComplete={() => setModalVisible(false)}
+        // swipeDirection={['up', 'left', 'right', 'down']}
+        hasBackdrop={false}
+        coverScreen={false}
+        swipeDirection="down">
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            // borderColor: 'rgba(0, 0, 0, 0.1)',
+          }}>
+          <ListItem
+            style={{
+              paddingHorizontal: 15,
+              paddingVertical: 20,
+              backgroundColor: 'black',
+              opacity: 0.8,
+            }}
+            title={(TextProps) => (
+              <Text
+                style={
+                  (TextProps.style,
+                  {color: 'white', fontSize: 22, marginLeft: 10})
+                }>
+                {cart.length} dishes added
+              </Text>
+            )}
+            description={(TextProps) => (
+              <Text style={(TextProps.style, {fontSize: 15, marginLeft: 15})}>
+                (Total Amount: Rs.{' '}
+                {cart.reduce((r, d) => r + parseInt(d.price), 0)})
+              </Text>
+            )}
+            accessoryRight={GoToCartButton}
+          />
+        </View>
+      </Modal>
+    </Layout>
   );
 };
 
@@ -211,7 +411,11 @@ const themedStyles = StyleService.create({
   sectionLabel: {
     marginHorizontal: 16,
     marginVertical: 8,
-    fontSize: 25,
+    textAlignVertical: 'center',
+    paddingBottom: 8,
+    fontSize: 30,
+    color: '#A9A9A9',
+    // alignSelf: 'center',
   },
   imagesList: {
     padding: 8,

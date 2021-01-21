@@ -11,6 +11,7 @@ import {
   RadioGroup,
   Radio,
   Datepicker,
+  Icon,
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extra/image-overlay.component';
 import {ProfileAvatar} from './extra/profile-avatar.component';
@@ -34,8 +35,8 @@ import {add} from 'react-native-reanimated';
 
 export default ({navigation}) => {
   const [kitchenName, setKitchenName] = React.useState();
-  const [firstName, setFirstName] = React.useState();
-  const [lastName, setLastName] = React.useState();
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
   const [address, setAddress] = React.useState();
   const [age, setAge] = React.useState();
   const [aboutme, setAboutMe] = React.useState();
@@ -45,8 +46,16 @@ export default ({navigation}) => {
   const [confirmpassword, setConfirmPassword] = React.useState();
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [passwordVisibleC, setPasswordVisibleC] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [date, setDate] = React.useState();
+  const [fnameCap, setFNameCap] = React.useState(null);
+  const [lnameCap, setLNameCap] = React.useState(null);
+  const [phoneCap, setPhoneCap] = React.useState(null);
+  const [emailCap, setEmailCap] = React.useState(null);
+  const [passCap, setPassCap] = React.useState(null);
+  const [cpassCap, setCPassCap] = React.useState(null);
+  const [ageCap, setAgeCap] = React.useState(null);
 
   const minDate = new Date(2018, 11, 24, 10, 33, 30, 0);
   const maxDate = new Date();
@@ -64,6 +73,50 @@ export default ({navigation}) => {
     age: age,
     aboutme: aboutme,
   });
+
+  const ValidateFields = (fields) => {
+    let regName = /^[a-zA-Z]+$/;
+    let regPhone = /^\+{0,2}([\-\. ])?(\(?\d{0,3}\))?([\-\. ])?\(?\d{0,3}\)?([\-\. ])?\d{3}([\-\. ])?\d{4}/;
+    let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let regPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    let regAge = /^[1-9]?[0-9]{1}$|^100$/;
+
+    const c1 = regName.test(firstName);
+    const c2 = regName.test(lastName);
+    const c3 = regPhone.test(phone);
+    const c4 = regEmail.test(email);
+    const c5 = regPass.test(password);
+    const c6 = regAge.test(age);
+    const c7 = regPass.test(confirmpassword);
+
+    // console.log(`C1 ${c1} C2 ${c2} C3${c3} C4${c4} C5${c5} C6 ${c6}`);
+    if (c1 && c2 && c3 && c4 && c5 && c6 && c7) {
+      onSignUpButtonPress();
+    } else {
+      c1 ? setFNameCap('') : setFNameCap('Enter a valid First Name!');
+      c2 ? setLNameCap('') : setLNameCap('Enter a valid Last Name!');
+      c3 ? setPhoneCap('None') : setPhoneCap('Enter a valid Phone!');
+      c4 ? setEmailCap('') : setEmailCap('Enter a valid Email Id!');
+      c5
+        ? setPassCap('')
+        : setPassCap(
+            'Password must conatin atleast 1 Lowercase, Uppercase, Digit and Symbol!',
+          );
+      c6
+        ? age > 18
+          ? setAgeCap('')
+          : setAgeCap('You must be an Adult(18+) to Register!')
+        : setAgeCap('Enter a valid Age!');
+      c7
+        ? password === confirmpassword
+          ? setCPassCap('')
+          : setCPassCap('Passwords do not match!')
+        : setCPassCap(
+            'Password must conatin atleast 1 Lowercase, Uppercase, Digit and Symbol!',
+          );
+    }
+  };
+
   const windowHeight = Dimensions.get('window').height;
   var config = {
     method: 'post',
@@ -73,6 +126,21 @@ export default ({navigation}) => {
     },
     data: data,
   };
+
+  const EyeIcon = (style) => (
+    <Icon {...style} name="eye" pack="eva" onPress={onPasswordIconPress} />
+  );
+
+  const EyeOffIcon = (style) => (
+    <Icon {...style} name="eye-off" pack="eva" onPress={onPasswordIconPress} />
+  );
+  const EyeIconC = (style) => (
+    <Icon {...style} name="eye" pack="eva" onPress={onPasswordIconPressC} />
+  );
+
+  const EyeOffIconC = (style) => (
+    <Icon {...style} name="eye-off" pack="eva" onPress={onPasswordIconPressC} />
+  );
 
   const onSignUpButtonPress = async () => {
     if (termsAccepted) {
@@ -102,6 +170,9 @@ export default ({navigation}) => {
 
   const onPasswordIconPress = () => {
     setPasswordVisible(!passwordVisible);
+  };
+  const onPasswordIconPressC = () => {
+    setPasswordVisibleC(!passwordVisibleC);
   };
 
   const renderPhotoButton = () => (
@@ -155,6 +226,15 @@ export default ({navigation}) => {
                   accessoryLeft={PersonIcon}
                   value={firstName}
                   onChangeText={setFirstName}
+                  caption={(TextProps) => (
+                    <Text
+                      style={[
+                        styles.caption,
+                        {display: fnameCap ? 'flex' : 'none'},
+                      ]}>
+                      {fnameCap}
+                    </Text>
+                  )}
                 />
                 <Input
                   style={styles.formInput}
@@ -164,6 +244,15 @@ export default ({navigation}) => {
                   accessoryLeft={PersonIcon}
                   value={lastName}
                   onChangeText={setLastName}
+                  caption={(TextProps) => (
+                    <Text
+                      style={[
+                        styles.caption,
+                        {display: lnameCap ? 'flex' : 'none'},
+                      ]}>
+                      {lnameCap}
+                    </Text>
+                  )}
                 />
               </View>
             </View>
@@ -186,6 +275,15 @@ export default ({navigation}) => {
                 accessoryLeft={EmailIcon}
                 value={email}
                 onChangeText={setEmail}
+                caption={(TextProps) => (
+                  <Text
+                    style={[
+                      styles.caption,
+                      {display: emailCap ? 'flex' : 'none'},
+                    ]}>
+                    {emailCap}
+                  </Text>
+                )}
               />
               <Input
                 style={styles.formInput}
@@ -195,6 +293,15 @@ export default ({navigation}) => {
                 accessoryLeft={PhoneIcon}
                 value={phone}
                 onChangeText={setPhone}
+                caption={(TextProps) => (
+                  <Text
+                    style={[
+                      styles.caption,
+                      {display: phoneCap ? 'flex' : 'none'},
+                    ]}>
+                    {phoneCap}
+                  </Text>
+                )}
               />
               <Input
                 style={styles.formInput}
@@ -203,6 +310,15 @@ export default ({navigation}) => {
                 accessoryLeft={AgeIcon}
                 value={age}
                 onChangeText={setAge}
+                caption={(TextProps) => (
+                  <Text
+                    style={[
+                      styles.caption,
+                      {display: ageCap ? 'flex' : 'none'},
+                    ]}>
+                    {ageCap}
+                  </Text>
+                )}
               />
               <Input
                 style={styles.formInput}
@@ -232,17 +348,35 @@ export default ({navigation}) => {
                 value={password}
                 onChangeText={setPassword}
                 onIconPress={onPasswordIconPress}
+                caption={(TextProps) => (
+                  <Text
+                    style={[
+                      styles.caption,
+                      {display: passCap ? 'flex' : 'none'},
+                    ]}>
+                    {passCap}
+                  </Text>
+                )}
               />
               <Input
                 style={styles.formInput}
                 status="control"
                 autoCapitalize="none"
-                secureTextEntry={!passwordVisible}
+                secureTextEntry={!passwordVisibleC}
                 placeholder="Confirm Password"
-                accessoryLeft={passwordVisible ? EyeIcon : EyeOffIcon}
+                accessoryLeft={passwordVisibleC ? EyeIconC : EyeOffIconC}
                 value={confirmpassword}
                 onChangeText={setConfirmPassword}
-                onIconPress={onPasswordIconPress}
+                onIconPress={onPasswordIconPressC}
+                caption={(TextProps) => (
+                  <Text
+                    style={[
+                      styles.caption,
+                      {display: cpassCap ? 'flex' : 'none'},
+                    ]}>
+                    {cpassCap}
+                  </Text>
+                )}
               />
               <CheckBox
                 style={styles.termsCheckBox}
@@ -256,7 +390,9 @@ export default ({navigation}) => {
             <Button
               style={styles.signUpButton}
               size="medium"
-              onPress={onSignUpButtonPress}>
+              onPress={() => {
+                ValidateFields(data);
+              }}>
               SIGN UP
             </Button>
             <View style={styles.socialAuthContainer}>
@@ -357,5 +493,9 @@ const themedStyles = StyleService.create({
   socialAuthHintText: {
     alignSelf: 'center',
     marginBottom: 16,
+  },
+  caption: {
+    color: '#FFE347',
+    // backgroundColor: 'red',
   },
 });

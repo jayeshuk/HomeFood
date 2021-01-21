@@ -17,6 +17,7 @@ const main_app = (state = initialState, action) => {
         newState.logged_user.token = action.payload.token;
         newState.logged_user.email = action.payload.email;
         newState.logged_user.id = action.payload.id;
+
         // console.log(newState);
       });
 

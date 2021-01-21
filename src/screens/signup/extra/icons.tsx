@@ -6,13 +6,7 @@ export const EmailIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="email" pack="eva" />
 );
 
-export const EyeIcon = (style: ImageStyle): IconElement => (
-  <Icon {...style} name="eye" pack="eva" />
-);
 
-export const EyeOffIcon = (style: ImageStyle): IconElement => (
-  <Icon {...style} name="eye-off" pack="eva" />
-);
 
 export const FacebookIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name="facebook" pack="eva" />

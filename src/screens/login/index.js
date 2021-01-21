@@ -36,7 +36,7 @@ export default ({navigation}) => {
   const validate = (text) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(text) === false) {
-      setEmailCaption('Incorrect Email Id Correct');
+      setEmailCaption('Incorrect Email Id !');
     } else {
       setEmailCaption('');
     }
@@ -81,7 +81,7 @@ export default ({navigation}) => {
         } else if (error.message.endsWith('1')) {
           window.alert(`Enter a valid Email Id or Password`);
         } else {
-          window.alert(erro);
+          window.alert(error);
         }
         console.log(error);
       });
@@ -143,7 +143,9 @@ export default ({navigation}) => {
                   accessoryLeft={EmailIcon}
                   value={email}
                   onChangeText={setEmail}
-                  caption={emailcaption}
+                  caption={(TextProps) => (
+                    <Text style={{color: '#FFE347'}}>{emailcaption}</Text>
+                  )}
                   onBlur={() => {
                     validate(email);
                   }}
