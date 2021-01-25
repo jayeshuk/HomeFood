@@ -17,8 +17,10 @@ import {
 } from '@ui-kitten/components';
 import {ImageOverlay} from './extras/image-overlay.component';
 import {ProfileSocial} from './extras/profile-social.component';
-import {SettingsIcon, EditIcon, PinIcon} from './extras/icons';
+import {SettingsIcon, LogoutIcon, EditIcon, PinIcon} from './extras/icons';
 import {Post, Profile} from './extras/data';
+import {useSelector, useDispatch} from 'react-redux';
+import {logUserOut} from '_redux_store/actions';
 
 /*
  * Will warn because container view is ScrollView that contains 3 List components inside.
@@ -50,6 +52,8 @@ const posts = [
 
 export default ProfileScreen = ({navigation}) => {
   const styles = useStyleSheet(themedStyle);
+  const dispatch = useDispatch();
+  const LogUserOut = () => dispatch(logUserOut());
 
   const onEditPress = () => {
     navigation && navigation.navigate('EditScreen');
@@ -57,6 +61,10 @@ export default ProfileScreen = ({navigation}) => {
 
   const onSettingsPress = () => {
     navigation && navigation.navigate('SettingsScreen');
+  };
+
+  const onLogoutPress = () => {
+    LogUserOut();
   };
 
   const renderFriendItem = (info) => (
@@ -104,9 +112,11 @@ export default ProfileScreen = ({navigation}) => {
             <Button
               style={styles.profileButton}
               status="control"
-              accessoryLeft={SettingsIcon}
-              onPress={onSettingsPress}>
-              SETTINGS
+              // accessoryLeft={SettingsIcon}
+              accessoryLeft={LogoutIcon}
+              // onPress={onSettingsPress}
+              onPress={onLogoutPress}>
+              LOG OUT
             </Button>
           </View>
         </ImageOverlay>

@@ -12,6 +12,8 @@ import {
   MenuItem,
 } from '@ui-kitten/components';
 import {CommonActions} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {logUserOut} from '_redux_store/actions';
 
 export default ({navigation}) => {
   const [soundEnabled, setSoundEnabled] = React.useState(false);
@@ -31,6 +33,9 @@ export default ({navigation}) => {
   const ForwardIcon = (props) => (
     <Icon {...props} name="arrow-ios-forward" pack="eva" />
   );
+
+  const dispatch = useDispatch();
+  const LogUserOut = () => dispatch(logUserOut());
 
   const settingsIndex = [
     {
@@ -105,7 +110,11 @@ export default ({navigation}) => {
                   />
                 )}
                 accessoryRight={ForwardIcon}
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() =>
+                  item.screen !== 'LogoutScreen'
+                    ? navigation.navigate(item.screen)
+                    : LogUserOut()
+                }
                 title={(evaProps) => (
                   <Text
                     {...evaProps}

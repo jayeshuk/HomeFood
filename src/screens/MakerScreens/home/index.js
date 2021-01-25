@@ -41,7 +41,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    LoadMakers();
+    GetOrders();
     setTimeout(() => setRefreshing(false), 2000);
   }, []);
 
@@ -122,7 +122,7 @@ const Home = () => {
         <Layout style={{flex: 1}}>
           {orderData.orders ? (
             orderData.orders.map((item, index) => (
-              <>
+              <Layout key={index}>
                 <ListItem
                   style={{margin: 10}}
                   title={(TextProps) => (
@@ -139,7 +139,7 @@ const Home = () => {
                   accessoryRight={AcceptReject}
                 />
                 <Divider />
-              </>
+              </Layout>
             ))
           ) : (
             <Text>Nahi</Text>

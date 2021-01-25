@@ -67,11 +67,16 @@ export default ({navigation}) => {
         // console.log(res);
         let id = jwt_decode(res.data.token).id;
         if (res.data.status === 'success') {
-          LogUser({token: res.data.token, email: email, id: id});
-          navigation &&
-            navigation.navigate(
-              selectedIndex ? 'MakerTabNavigator' : 'UserTabNavigator',
-            );
+          LogUser({
+            token: res.data.token,
+            email: email,
+            id: id,
+            role: selectedIndex ? 'maker' : 'user',
+          });
+          // navigation &&
+          //   navigation.navigate(
+          //     selectedIndex ? 'MakerTabNavigator' : 'UserTabNavigator',
+          //   );
         }
         return res.data;
       })

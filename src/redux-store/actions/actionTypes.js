@@ -9,3 +9,4 @@ export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 export const CHECK_DISH = 'CHECK_DISH';
 
 export const LOG_USER = 'LOG_USER';
+export const LOG_USER_OUT = 'LOG_USER_OUT';

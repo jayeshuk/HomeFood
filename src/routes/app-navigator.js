@@ -6,17 +6,35 @@ import {UserTabNavigator} from './UserNavs/user-tabnavigator';
 import TempSwitch from './TempSwitch';
 import LoginScreen from '_screens_login';
 import SignupScreen from '_screens_signup';
+import {useSelector, useDispatch} from 'react-redux';
 
 const {Navigator, Screen} = createStackNavigator();
 
-export const AppNavigator = () => (
-  <NavigationContainer>
-    <Navigator headerMode={false} initialRouteName="LoginScreen">
-      <Screen name="LoginScreen" component={LoginScreen} />
-      <Screen name="SignupScreen" component={SignupScreen} />
-      <Screen name="UserTabNavigator" component={UserTabNavigator} />
-      <Screen name="MakerTabNavigator" component={MakerTabNavigator} />
-      <Screen name="TempSwitch" component={TempSwitch} />
-    </Navigator>
-  </NavigationContainer>
-);
+function AppNavigator() {
+  const logged_user = useSelector((state) => state.main_app.logged_user);
+  const isLoggedIn = logged_user.token !== '' ? false : true;
+  console.log('USER DATA FROM MAIN NAV:', logged_user);
+  return (
+    <NavigationContainer>
+      <Navigator headerMode={false} initialRouteName="LoginScreen">
+        {isLoggedIn ? (
+          <>
+            <Screen name="LoginScreen" component={LoginScreen} />
+            <Screen name="SignupScreen" component={SignupScreen} />
+          </>
+        ) : logged_user.role == 'maker' ? (
+          <>
+            <Screen name="MakerTabNavigator" component={MakerTabNavigator} />
+            <Screen name="TempSwitch" component={TempSwitch} />
+          </>
+        ) : (
+          <>
+            <Screen name="UserTabNavigator" component={UserTabNavigator} />
+          </>
+        )}
+      </Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default AppNavigator;

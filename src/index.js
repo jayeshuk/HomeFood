@@ -8,7 +8,7 @@ import {default as theme} from './assets/themes/custom-theme.json'; // <-- Impor
 import {default as mapping} from './assets/themes/mapping.json'; // <-- Import app mapping
 import configureStore from './redux-store/';
 import {Provider} from 'react-redux';
-import {AppNavigator} from './routes/app-navigator';
+import AppNavigator from './routes/app-navigator';
 
 const store = configureStore();
 

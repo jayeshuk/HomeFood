@@ -5,6 +5,9 @@ import {ImageStyle} from 'react-native';
 export const SettingsIcon = (evaProps) => (
   <Icon {...evaProps} name="settings" pack="eva" />
 );
+export const LogoutIcon = (evaProps) => (
+  <Icon {...evaProps} name="log-out" pack="eva" />
+);
 
 export const EditIcon = (style) => <Icon {...style} name="edit-2" pack="eva" />;
 

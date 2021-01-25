@@ -10,4 +10,4 @@ export {
   checkDish,
 } from './maker-menu';
 
-export {logUser} from './main-app';
+export {logUser, logUserOut} from './main-app';
