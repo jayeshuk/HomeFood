@@ -1,13 +1,20 @@
 import React, {Component, useState, useEffect} from 'react';
-import {Dimensions, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Dimensions,
+  View,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import {
   Divider,
   Icon,
   Layout,
   Text,
   TopNavigation,
-  TopNavigationAction,
   Toggle,
+  ListItem,
+  Button,
 } from '@ui-kitten/components';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'react-native-axios';
@@ -27,13 +34,16 @@ const Home = () => {
   const logged_user = useSelector((state) => state.main_app.logged_user);
 
   const [shopEnabled, setShopEnabled] = useState(false);
-  // const [orderData, setOrderData] = useState({
-  //   orders: [],
-  // });
-  // var orderData = [];
-  // const setOrderData = (obj) => {
-  //   orderData = obj;
-  // };
+  const [orderData, setOrderData] = useState({
+    orders: [],
+  });
+
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    LoadMakers();
+    setTimeout(() => setRefreshing(false), 2000);
+  }, []);
 
   var config = {
     method: 'get',
@@ -42,16 +52,17 @@ const Home = () => {
   };
 
   const GetOrders = async () => {
-    await axios(config)
+    const md = await axios(config)
       .then(function (response) {
-        const resp_arr = response.data.data.orderss;
-        const md = new Array.from(resp_arr);
-        setOrderData(md);
-        console.log('ORDER DATA:', orderData);
+        const md = response.data.data.orders;
+        console.log(response.data.data.orders);
+        return response.data.data;
       })
       .catch(function (error) {
         console.log(error);
       });
+    setOrderData(md);
+    // console.log('Data', JSON.stringify(orderData.orders[0].dishes));
   };
 
   const toggleShop = () => {
@@ -67,6 +78,15 @@ const Home = () => {
       onChange={toggleShop}
     />
   );
+
+  const AcceptReject = (props) => {
+    return (
+      <>
+        <Button status="success">Accept</Button>
+        <Button status="danger">Reject</Button>
+      </>
+    );
+  };
 
   useEffect(() => {
     GetOrders();
@@ -95,16 +115,39 @@ const Home = () => {
         alignment="start"
       />
       <Divider />
-      <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {/* {orderData.orders ? (
-          orderData.orders.map((item, index) => <Text>{item.amount}</Text>)
-        ) : ( */}
-        {/* <Text>Nahi</Text> */}
-        <Text category="h5">Waiting for Orders to Recieve...</Text>
-        <Text category="h5">{String(shopEnabled)} </Text>
-
-        {/* )} */}
-      </Layout>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <Layout style={{flex: 1}}>
+          {orderData.orders ? (
+            orderData.orders.map((item, index) => (
+              <>
+                <ListItem
+                  style={{margin: 10}}
+                  title={(TextProps) => (
+                    <Text category="h5" style={{color: 'grey'}}>
+                      Order {index + 1}
+                    </Text>
+                  )}
+                  description={(TextProps) => (
+                    <Text category="h6" style={{color: 'grey'}}>
+                      Rs. {item.amount}
+                    </Text>
+                  )}
+                  // accessoryLeft={renderItemIcon}
+                  accessoryRight={AcceptReject}
+                />
+                <Divider />
+              </>
+            ))
+          ) : (
+            <Text>Nahi</Text>
+            // <Text category="h5">Waiting for Orders to Recieve...</Text>
+            // <Text category="h5">{String(shopEnabled)} </Text>
+          )}
+        </Layout>
+      </ScrollView>
     </Layout>
   );
 };
