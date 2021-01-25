@@ -6,6 +6,7 @@ const makerRouter = require('./routes/makerRoutes');
 const menuRouter = require('./routes/menuRoutes');
 const dishRouter = require('./routes/dishRoutes');
 const orderRouter = require('./routes/orderRoutes');
+const verifyRouter = require('./routes/verifyRoutes');
 const AppError = require('../utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const app = express();
@@ -48,6 +49,7 @@ app.use('/api/v1/dishes', dishRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/makers', makerRouter);
 app.use('/api/v1/orders', orderRouter);
+app.use('/api/v1/verifies', verifyRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

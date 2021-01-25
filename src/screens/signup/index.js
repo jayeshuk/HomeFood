@@ -95,7 +95,7 @@ export default ({navigation}) => {
     } else {
       c1 ? setFNameCap('') : setFNameCap('Enter a valid First Name!');
       c2 ? setLNameCap('') : setLNameCap('Enter a valid Last Name!');
-      c3 ? setPhoneCap('None') : setPhoneCap('Enter a valid Phone!');
+      c3 ? setPhoneCap('') : setPhoneCap('Enter a valid Phone!');
       c4 ? setEmailCap('') : setEmailCap('Enter a valid Email Id!');
       c5
         ? setPassCap('')
@@ -154,9 +154,7 @@ export default ({navigation}) => {
         })
         .catch(function (error) {
           if (error.message.endsWith('500')) {
-            window.alert(
-              'First Name, Email Id and Password are compulsory fields.',
-            );
+            window.alert(error.message);
           }
         });
     } else {

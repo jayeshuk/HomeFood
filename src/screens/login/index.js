@@ -41,8 +41,8 @@ export default ({navigation}) => {
       setEmailCaption('');
     }
   };
-  // var data = JSON.stringify({email: email, password: password});
-  var data = JSON.stringify({email: 'adi@jonas.io', password: 'pass1234'});
+  var data = JSON.stringify({email: email, password: password});
+  // var data = JSON.stringify({email: 'adi@jonas.io', password: 'pass1234'});
   const windowHeight = Dimensions.get('window').height;
 
   // const logged_user = useSelector((state) => state.main_app.logged_user);

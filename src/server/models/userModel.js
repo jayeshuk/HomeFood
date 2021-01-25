@@ -61,6 +61,10 @@ const userSchema = new mongoose.Schema({
     type: [mongoose.ObjectId],
     default: [],
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.pre('save', async function (next) {
