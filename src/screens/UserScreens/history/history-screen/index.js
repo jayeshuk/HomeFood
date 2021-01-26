@@ -26,7 +26,6 @@
 //   // </TopTabs.Navigator>
 //   <ProductListScreen />
 // );
-
 import React, {Component} from 'react';
 import {Dimensions, View, StyleSheet} from 'react-native';
 import {ProductListScreen} from './product-list.component';

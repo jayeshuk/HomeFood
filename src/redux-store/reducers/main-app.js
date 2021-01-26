@@ -7,6 +7,7 @@ const initialState = {
     email: '',
     id: '',
     role: '',
+    address: '',
   },
 };
 
@@ -19,6 +20,7 @@ const main_app = (state = initialState, action) => {
         newState.logged_user.email = action.payload.email;
         newState.logged_user.id = action.payload.id;
         newState.logged_user.role = action.payload.role;
+        newState.logged_user.address = action.payload.address;
 
         // console.log(newState);
       });
@@ -30,6 +32,7 @@ const main_app = (state = initialState, action) => {
         newState.logged_user.email = '';
         newState.logged_user.id = '';
         newState.logged_user.role = '';
+        newState.logged_user.address = '';
 
         // console.log(newState);
       });

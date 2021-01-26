@@ -81,10 +81,14 @@ const Home = () => {
 
   const AcceptReject = (props) => {
     return (
-      <>
-        <Button status="success">Accept</Button>
-        <Button status="danger">Reject</Button>
-      </>
+      <Layout>
+        <Button status="success" style={{margin: 4}} size="small">
+          Accept
+        </Button>
+        <Button status="danger" style={{margin: 4}} size="small">
+          Reject
+        </Button>
+      </Layout>
     );
   };
 
@@ -121,29 +125,38 @@ const Home = () => {
         }>
         <Layout style={{flex: 1}}>
           {orderData.orders ? (
-            orderData.orders.map((item, index) => (
-              <Layout key={index}>
-                <ListItem
-                  style={{margin: 10}}
-                  title={(TextProps) => (
-                    <Text category="h5" style={{color: 'grey'}}>
-                      Order {index + 1}
-                    </Text>
-                  )}
-                  description={(TextProps) => (
-                    <Text category="h6" style={{color: 'grey'}}>
-                      Rs. {item.amount}
-                    </Text>
-                  )}
-                  // accessoryLeft={renderItemIcon}
-                  accessoryRight={AcceptReject}
-                />
-                <Divider />
-              </Layout>
-            ))
+            orderData.orders.map((item, index) => {
+              if (logged_user.id == item.makerid)
+                return (
+                  <Layout key={index}>
+                    <ListItem
+                      style={{margin: 10}}
+                      title={(TextProps) => (
+                        <Text category="h5" style={{color: 'grey'}}>
+                          {item.dishes[0].name}...
+                        </Text>
+                      )}
+                      description={(TextProps) => (
+                        <>
+                          <Text category="h6" style={{color: 'grey'}}>
+                            Rs. {item.amount}
+                          </Text>
+                          <Text category="h6" style={{color: 'grey'}}>
+                            Address:{' '}
+                            {item.del_address ? item.del_address : 'No Address'}
+                          </Text>
+                        </>
+                      )}
+                      // accessoryLeft={renderItemIcon}
+                      accessoryRight={AcceptReject}
+                    />
+                    <Divider />
+                  </Layout>
+                );
+            })
           ) : (
-            <Text>Nahi</Text>
-            // <Text category="h5">Waiting for Orders to Recieve...</Text>
+            // <Text>Nahi</Text>
+            <Text category="h5">Waiting for Orders to Recieve...</Text>
             // <Text category="h5">{String(shopEnabled)} </Text>
           )}
         </Layout>

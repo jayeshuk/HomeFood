@@ -26,7 +26,7 @@ const products: Product[] = [
 export const ProductListScreen = ({navigation, route}): React.ReactElement => {
   const styles = useStyleSheet(themedStyles);
 
-  const onItemPress = (): void => {
+  const onItemPress = (i): void => {
     navigation && navigation.navigate('OrderDetails');
   };
 

@@ -6,8 +6,9 @@ const AppError = require('../../utils/appError');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const signToken = (id) => {
-  return jwt.sign({id}, process.env.JWT_SECRET);
+const signToken = (obj) => {
+  let {id, add} = obj;
+  return jwt.sign({id, add}, process.env.JWT_SECRET);
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -76,7 +77,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 4) Everything ok, send jwt to client
-  const token = signToken(user._id);
+  const token = signToken({id: user._id, add: user.address});
 
   res.status(200).json({
     status: 'success',

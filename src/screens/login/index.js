@@ -62,16 +62,17 @@ export default ({navigation}) => {
   const onSignInButtonPress = async () => {
     await axios(config)
       .then(function (res) {
-        console.log(JSON.stringify(res.data));
+        console.log('RESPONSE LOGIN', JSON.stringify(res.data));
         // let json = res.json();
         // console.log(res);
-        let id = jwt_decode(res.data.token).id;
+        let decoded = jwt_decode(res.data.token);
         if (res.data.status === 'success') {
           LogUser({
             token: res.data.token,
             email: email,
-            id: id,
+            id: decoded.id,
             role: selectedIndex ? 'maker' : 'user',
+            address: decoded.add,
           });
           // navigation &&
           //   navigation.navigate(
@@ -104,110 +105,110 @@ export default ({navigation}) => {
     // <KeyboardAvoidingView>
     <>
       <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
-          <View style={{width: '100%', height: windowHeight}}>
-            <ImageOverlay
-              style={styles.container}
-              source={require('../../assets/images/start_stove.jpg')}>
-              <View style={styles.headerContainer}>
-                <Text style={styles.helloLabel} status="control">
-                  Sign In
-                </Text>
-                <Text style={styles.signInLabel} category="s1" status="control">
-                  Get Started with Signing In
-                </Text>
-              </View>
+        {/* <ScrollView style={{flex: 1}}> */}
+        <View style={{width: '100%', height: windowHeight}}>
+          <ImageOverlay
+            style={styles.container}
+            source={require('../../assets/images/start_stove.jpg')}>
+            <View style={styles.headerContainer}>
+              <Text style={styles.helloLabel} status="control">
+                Sign In
+              </Text>
+              <Text style={styles.signInLabel} category="s1" status="control">
+                Get Started with Signing In
+              </Text>
+            </View>
 
-              <View style={styles.tabContentContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
+            <View style={styles.tabContentContainer}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Text
+                  category="h6"
+                  status="control"
+                  style={{alignSelf: 'center'}}>
+                  Role :
+                </Text>
+                <RadioGroup
+                  style={{flexDirection: 'row'}}
+                  status="control"
+                  selectedIndex={selectedIndex}
+                  onChange={(index) => {
+                    setSelectedIndex(index);
                   }}>
-                  <Text
-                    category="h6"
-                    status="control"
-                    style={{alignSelf: 'center'}}>
-                    Role :
-                  </Text>
-                  <RadioGroup
-                    style={{flexDirection: 'row'}}
-                    status="control"
-                    selectedIndex={selectedIndex}
-                    onChange={(index) => {
-                      setSelectedIndex(index);
-                    }}>
-                    <Radio>User</Radio>
-                    <Radio>Maker</Radio>
-                  </RadioGroup>
-                </View>
-                <Input
-                  style={styles.formInput}
-                  status="control"
-                  placeholder="Email"
-                  accessoryLeft={EmailIcon}
-                  value={email}
-                  onChangeText={setEmail}
-                  caption={(TextProps) => (
-                    <Text style={{color: '#FFE347'}}>{emailcaption}</Text>
-                  )}
-                  onBlur={() => {
-                    validate(email);
-                  }}
-                />
-                <Input
-                  style={styles.formInput}
-                  status="control"
-                  placeholder="Password"
-                  secureTextEntry={!passwordVisible}
-                  accessoryLeft={LockIcon}
-                  value={password}
-                  onChangeText={setPassword}
-                  onIconPress={onPasswordIconPress}
-                />
+                  <Radio>User</Radio>
+                  <Radio>Maker</Radio>
+                </RadioGroup>
               </View>
-
-              <Button
-                style={styles.signInButton}
-                size="giant"
-                onPress={onSignInButtonPress}>
-                SIGN IN
-              </Button>
-              <Button
-                style={styles.signUpButton}
-                appearance="ghost"
+              <Input
+                style={styles.formInput}
                 status="control"
-                onPress={onSignUpButtonPress}>
-                Don't have an account? Sign Up
-              </Button>
-              <View style={styles.socialAuthContainer}>
-                <Text style={styles.socialAuthHintText} status="control">
-                  Or Sign In Using Social Media
-                </Text>
-                <View style={styles.socialAuthButtonsContainer}>
-                  <Button
-                    appearance="ghost"
-                    size="giant"
-                    status="control"
-                    accessoryLeft={FacebookIcon}
-                  />
-                  <Button
-                    appearance="ghost"
-                    size="giant"
-                    status="control"
-                    accessoryLeft={GoogleIcon}
-                  />
-                  <Button
-                    appearance="ghost"
-                    size="giant"
-                    status="control"
-                    accessoryLeft={TwitterIcon}
-                  />
-                </View>
+                placeholder="Email"
+                accessoryLeft={EmailIcon}
+                value={email}
+                onChangeText={setEmail}
+                caption={(TextProps) => (
+                  <Text style={{color: '#FFE347'}}>{emailcaption}</Text>
+                )}
+                onBlur={() => {
+                  validate(email);
+                }}
+              />
+              <Input
+                style={styles.formInput}
+                status="control"
+                placeholder="Password"
+                secureTextEntry={!passwordVisible}
+                accessoryLeft={LockIcon}
+                value={password}
+                onChangeText={setPassword}
+                onIconPress={onPasswordIconPress}
+              />
+            </View>
+
+            <Button
+              style={styles.signInButton}
+              size="giant"
+              onPress={onSignInButtonPress}>
+              SIGN IN
+            </Button>
+            <Button
+              style={styles.signUpButton}
+              appearance="ghost"
+              status="control"
+              onPress={onSignUpButtonPress}>
+              Don't have an account? Sign Up
+            </Button>
+            <View style={styles.socialAuthContainer}>
+              <Text style={styles.socialAuthHintText} status="control">
+                Or Sign In Using Social Media
+              </Text>
+              <View style={styles.socialAuthButtonsContainer}>
+                <Button
+                  appearance="ghost"
+                  size="giant"
+                  status="control"
+                  accessoryLeft={FacebookIcon}
+                />
+                <Button
+                  appearance="ghost"
+                  size="giant"
+                  status="control"
+                  accessoryLeft={GoogleIcon}
+                />
+                <Button
+                  appearance="ghost"
+                  size="giant"
+                  status="control"
+                  accessoryLeft={TwitterIcon}
+                />
               </View>
-            </ImageOverlay>
-          </View>
-        </ScrollView>
+            </View>
+          </ImageOverlay>
+        </View>
+        {/* </ScrollView> */}
       </View>
     </>
     // {/* </KeyboardAvoidingView> */}

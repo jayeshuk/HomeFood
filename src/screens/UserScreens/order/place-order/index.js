@@ -81,6 +81,7 @@ function Pay({route, navigation}) {
           userid: logged_user.id,
           makerid: makerid,
           prepared: false,
+          del_address: logged_user.address,
         });
       })
       .catch((error) => {
