@@ -4,6 +4,45 @@ An Android app to serve the working professionals and students, home-made hygeni
 
 Built with React, React Native, Redux, JavaScript, and CSS.
 
+## App Snapshots
+
+### Login & Sign Up Screen
+| <img src="https://user-images.githubusercontent.com/46965764/109750077-cb25dd80-7c01-11eb-86d9-4c8b13c58b1e.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109751279-25c03900-7c04-11eb-8b45-51ff30c81234.jpg"  width="294" height="638"> | 
+| :----------------------------------------------: | :--------------------------------------------: |
+| LOGIN | SIGN UP |
+
+
+
+### User Screens
+
+| <img src="https://user-images.githubusercontent.com/46965764/109756116-4c36a200-7c0d-11eb-94c1-570cef6ad654.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109756127-50fb5600-7c0d-11eb-9df1-907e37944836.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109756135-59ec2780-7c0d-11eb-8e5e-0ba5b6d6058d.png"  width="294" height="850"> |
+| :----------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
+| DASHBOARD | HISTORY | PROFILE |
+
+
+### Maker Screens
+
+| <img src="https://user-images.githubusercontent.com/46965764/109756344-c7985380-7c0d-11eb-8825-b67b23291345.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109756376-d2eb7f00-7c0d-11eb-9309-81d87b90e1da.jpg"  width="294" height="638"> |
+| :----------------------------------------------: | :--------------------------------------------: |
+| ORDER UPDATES | CUSTOMIZABLE MENU |
+
+| <img src="https://user-images.githubusercontent.com/46965764/109756389-df6fd780-7c0d-11eb-9b86-549db134a750.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109756397-e3035e80-7c0d-11eb-89ef-0dca1f45e32f.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109756412-e991d600-7c0d-11eb-95af-854e6246e150.jpg"  width="294" height="638"> |
+| :----------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
+| EDIT CATEGORIES | LEARN FROM YOUTUBE | SETTINGS |
+
+
+### Place Order, Payment and Order Received
+
+| <img src="https://user-images.githubusercontent.com/46965764/109759323-d2091c00-7c12-11eb-9984-fc75fc3b1aa5.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109759561-31ffc280-7c13-11eb-9471-f22aaf18331b.jpg"  width="294" height="638"> |
+| :----------------------------------------------: | :--------------------------------------------: |
+| ADD DISHES | ORDER REVIEW |
+
+| <img src="https://user-images.githubusercontent.com/46965764/109759689-6ffce680-7c13-11eb-9122-3980b0fae534.jpg"  width="294" height="638"> | <img src="https://user-images.githubusercontent.com/46965764/109759695-725f4080-7c13-11eb-8ed4-510b97912244.jpg"  width="294" height="638"> |
+| :----------------------------------------------: | :--------------------------------------------: |
+| PAYMENT | ORDER RECEIVED |
+
+
+
 ## Technology
 <h2 align="center">
   <a href="https://reactnative.dev/">
