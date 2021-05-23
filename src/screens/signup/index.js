@@ -112,7 +112,7 @@ export default ({navigation}) => {
           ? setCPassCap('')
           : setCPassCap('Passwords do not match!')
         : setCPassCap(
-            'Password must conatin atleast 1 Lowercase, Uppercase, Digit and Symbol!',
+            'Password must conatin atleast 1 Lowercase, Uppercase, Digit and Symbol! (8<Length<15)',
           );
     }
   };
@@ -120,7 +120,7 @@ export default ({navigation}) => {
   const windowHeight = Dimensions.get('window').height;
   var config = {
     method: 'post',
-    url: 'http://192.168.43.132:3000/api/v1/users/signup',
+    url: 'http://192.168.0.108:3000/api/v1/users/signup',
     headers: {
       'Content-Type': 'application/json',
     },

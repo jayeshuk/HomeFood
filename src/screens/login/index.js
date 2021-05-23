@@ -51,7 +51,7 @@ export default ({navigation}) => {
 
   var config = {
     method: 'post',
-    url: 'http://192.168.43.132:3000/api/v1/users/login',
+    url: 'http://192.168.0.108:3000/api/v1/users/login',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -63,8 +63,7 @@ export default ({navigation}) => {
     await axios(config)
       .then(function (res) {
         console.log('RESPONSE LOGIN', JSON.stringify(res.data));
-        // let json = res.json();
-        // console.log(res);
+
         let decoded = jwt_decode(res.data.token);
         if (res.data.status === 'success') {
           LogUser({
@@ -74,10 +73,6 @@ export default ({navigation}) => {
             role: selectedIndex ? 'maker' : 'user',
             address: decoded.add,
           });
-          // navigation &&
-          //   navigation.navigate(
-          //     selectedIndex ? 'MakerTabNavigator' : 'UserTabNavigator',
-          //   );
         }
         return res.data;
       })

@@ -43,7 +43,7 @@ function CategoryDetails({route, navigation}) {
   var data = JSON.stringify({id: menu_id, title: categoryName});
   var del_cat_config = {
     method: 'delete',
-    url: 'http://192.168.43.132:3000/api/v1/menus/',
+    url: 'http://192.168.0.108:3000/api/v1/menus/',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -51,7 +51,7 @@ function CategoryDetails({route, navigation}) {
   };
   var load_config = {
     method: 'get',
-    url: `http://192.168.43.132:3000/api/v1/menus/${maker_id}`,
+    url: `http://192.168.0.108:3000/api/v1/menus/${maker_id}`,
     headers: {},
   };
 

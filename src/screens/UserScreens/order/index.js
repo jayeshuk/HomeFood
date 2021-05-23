@@ -57,7 +57,7 @@ const {width: screenWidth} = Dimensions.get('window');
 
 var config = {
   method: 'get',
-  url: 'http://192.168.43.132:3000/api/v1/makers',
+  url: 'http://192.168.0.108:3000/api/v1/makers',
   headers: {
     // 'Content-Type': 'application/json',
   },

@@ -15,7 +15,7 @@ function Pay({route, navigation}) {
     console.log('Storing Order:', orderId);
     await axios({
       method: 'patch',
-      url: `http://192.168.43.132:3000/api/v1/users/${logged_user.id}`,
+      url: `http://192.168.0.108:3000/api/v1/users/${logged_user.id}`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -33,7 +33,7 @@ function Pay({route, navigation}) {
     const rec_data = JSON.stringify(order_obj);
     await axios({
       method: 'post',
-      url: 'http://192.168.43.132:3000/api/v1/orders',
+      url: 'http://192.168.0.108:3000/api/v1/orders',
       headers: {
         'Content-Type': 'application/json',
       },

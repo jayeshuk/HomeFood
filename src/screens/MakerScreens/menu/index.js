@@ -49,13 +49,13 @@ function Menu({navigation}) {
 
   var load_config = {
     method: 'get',
-    url: `http://192.168.43.132:3000/api/v1/menus/${maker_id}`,
+    url: `http://192.168.0.108:3000/api/v1/menus/${maker_id}`,
     headers: {},
   };
 
   var update_config = {
     method: 'patch',
-    url: `http://192.168.43.132:3000/api/v1/menus/${maker_id}`,
+    url: `http://192.168.0.108:3000/api/v1/menus/${maker_id}`,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -70,7 +70,7 @@ function Menu({navigation}) {
     });
     var update_config = {
       method: 'patch',
-      url: `http://192.168.43.132:3000/api/v1/dishes/${did}`,
+      url: `http://192.168.0.108:3000/api/v1/dishes/${did}`,
       headers: {
         'Content-Type': 'application/json',
       },

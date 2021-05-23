@@ -47,7 +47,7 @@ const Home = () => {
 
   var config = {
     method: 'get',
-    url: 'http://192.168.43.132:3000/api/v1/orders/',
+    url: 'http://192.168.0.108:3000/api/v1/orders/',
     headers: {},
   };
 
@@ -55,7 +55,7 @@ const Home = () => {
     const md = await axios(config)
       .then(function (response) {
         const md = response.data.data.orders;
-        console.log(response.data.data.orders);
+        // console.log(response.data.data.orders);
         return response.data.data;
       })
       .catch(function (error) {
@@ -124,7 +124,7 @@ const Home = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <Layout style={{flex: 1}}>
-          {orderData.orders ? (
+          {orderData.orders.length > 0 ? (
             orderData.orders.map((item, index) => {
               if (logged_user.id == item.makerid)
                 return (
@@ -155,9 +155,13 @@ const Home = () => {
                 );
             })
           ) : (
-            // <Text>Nahi</Text>
-            <Text category="h5">Waiting for Orders to Recieve...</Text>
-            // <Text category="h5">{String(shopEnabled)} </Text>
+            <Layout
+              style={{
+                alignSelf: 'center',
+                marginTop: '50%',
+              }}>
+              <Text category="h5">Waiting for Orders to Recieve...</Text>
+            </Layout>
           )}
         </Layout>
       </ScrollView>
